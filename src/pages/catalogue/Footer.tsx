@@ -2,8 +2,7 @@ import { Image, Flex, Container } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <Container marginTop="auto" maxW="7xl" bg="#3B3B3B" mt="10px">
-      <Flex justifyContent="space-around" align="center">
+      <Flex mt="2" justifyContent="space-around" align="center">
         <Image
           src="/assets/shtrix kod.png"
           height="80px"
@@ -11,7 +10,6 @@ const Footer = () => {
           alt="Shtrix kod"
         />
       </Flex>
-    </Container>
   );
 };
 

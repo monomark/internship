@@ -2,8 +2,7 @@ import { Image, Flex, Container } from "@chakra-ui/react";
 
 const Header = () => {
   return (
-    <Container maxW="7xl" bg="#3B3B3B" py="10px">
-      <Flex justifyContent="space-around" align="center">
+      <Flex py="2" justifyContent="space-around" align="center">
         <Image
           src="/assets/Group.png"
           height="50px"
@@ -14,7 +13,6 @@ const Header = () => {
           mt="5px"
         />
       </Flex>
-    </Container>
   );
 };
 export default Header;

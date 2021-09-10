@@ -1,11 +1,9 @@
-// import Router from './Providers/RouterProvider'
-import Catalogue from "./pages/catalogue";
+import Router from './providers/RouterProvider'
+
 
 function App() {
-  return (<>
-    {/* <Router/> */}
-    <Catalogue />
-    </>
+  return (
+    <Router/>
   );
 }
 

@@ -1,8 +1,7 @@
-import { Flex, VStack, Text, Image, Box } from "@chakra-ui/react";
+import { VStack, Text, Image, Box } from "@chakra-ui/react";
 
 const Pics3 = () => {
   return (
-    <>
       <VStack>
         <Image
           src="/assets/e264f577-09ce-453e-91b3-072eccbecd31.jpg"
@@ -42,7 +41,6 @@ const Pics3 = () => {
           shadow="5px 5px 100px 5px #C4C4C4"
         />
       </VStack>
-    </>
   );
 };
 export default Pics3;

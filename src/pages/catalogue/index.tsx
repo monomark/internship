@@ -8,20 +8,18 @@ import Header from "./Header";
 
 const Catalogue = () => {
   return (
-    <Box>
+    <Container maxW="6xl">
       <Header />
-
       <Buttons />
-      <Container pt="60px" maxW="6xl">
+      <Box pt="16">
         <Flex alignItems="center" justifyContent="space-between">
           <Pics />
           <Pics2 />
           <Pics3 />
         </Flex>
-      </Container>
-
+      </Box>s
       <Footer />
-    </Box>
+    </Container>
   );
 };
 
