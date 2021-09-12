@@ -6,7 +6,6 @@ const Bedroom = () => {
     <Container pb="30px">
       <Box>
         <Box
-          className="poxos"
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Image w="365px" h="660px" src="/assets/nkar1.png" alt="furniture" />
@@ -14,7 +13,6 @@ const Bedroom = () => {
           <Image w="365px" h="660px" src="/assets/nkar3.png" alt="furniture" />
         </Box>
         <Box
-          className="poxos"
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Image w="560px" h="402px" src="/assets/nkar4.png" alt="furniture" />
@@ -22,7 +20,6 @@ const Bedroom = () => {
         </Box>
 
         <Box
-          className="poxos"
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Image w="545px" h="656px" src="/assets/nkar6.png" alt="furniture" />
@@ -30,7 +27,6 @@ const Bedroom = () => {
         </Box>
 
         <Box
-          className="poxos"
           style={{ display: "flex", justifyContent: "center" }}
         >
           <Image w="365px" h="660px" src="/assets/nkar8.png" alt="furniture" />
