@@ -22,9 +22,9 @@ const OnCllickKitchen = () => {
   const [value, setValue] = useState("");
   const [pics, setPics] = useState(pictures);
 
-  const filterPics = pics.filter((pic) => {
-    return pic.name.toLowerCase().includes(value.toLowerCase());
-  });
+  const filterPics = pics.filter((pic) =>
+    pic.name.toLowerCase().includes(value.toLowerCase())
+  );
 
   return (
     <Container maxW="3xl" bg="gray.700">
