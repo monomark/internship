@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <Flex mt="2" justifyContent="space-around" align="center">
       <Image
-        src="/assets/shtrix kod.png"
+        src="/assets/shtrixkod.png"
         height="80px"
         width="368px"
         alt="Shtrix kod"
