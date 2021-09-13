@@ -31,12 +31,12 @@ function Search() {
         name="field"
         onKeyDown={handleKeyDown}
         onChange={inputChangeValue}
-        onClick={handleClick}
         value={values.field}
       />
       <InputRightElement width="80px">
         <Button
           size="sm"
+          onClick={handleClick}
           style={{
             backgroundColor: "#FA4993",
             color: "white",
