@@ -1,27 +1,16 @@
 import React from "react";
 import { Box, Container } from "@chakra-ui/react";
 import Header from "./Header";
-import Inputs from "./Inputs";
+import SignIn from "./SignIn";
 import Buttonicon from "./Buttonicon";
 
-const index = () => {
+const SignInContent = () => {
   return (
     <Box minH="100vh" pt="10rem">
-      <Container
-        maxW="580px"
-        bg="grey.100"
-        p="3rem"
-        width={{
-          base: "300px",
-          sm: "500px",
-          md: "700px",
-          lg: "800px",
-          xl: "1600px",
-        }}
-      >
+      <Container bg="grey.100" p="3rem">
         <Box bg="grey.200" p="2rem" minH="1100px">
           <Header />
-          <Inputs />
+          <SignIn />
           <Buttonicon />
         </Box>
       </Container>
@@ -29,4 +18,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default SignInContent;
