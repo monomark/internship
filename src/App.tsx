@@ -1,14 +1,8 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
-import Header from "../src/pages/Bedroom/Header";
-import Bedroom from "../src/pages/Bedroom/Bedroom";
+import Router from './providers/RouterProvider'
 
 function App() {
   return (
-    <Box>
-      <Header />
-      <Bedroom />
-    </Box>
+    <Router/>
   );
 }
 
