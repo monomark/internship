@@ -12,10 +12,9 @@ const Signup = () => {
           <Signbuttons />
           <Divider width="full" borderColor="#000" mb="4" />
           <Signupwith />
+
           <Signupform />
-          <Button m="20" variant="pink" mt="2rem" mb="8rem">
-            join
-          </Button>
+         
         </Box>
       </Container>
     </Box>
