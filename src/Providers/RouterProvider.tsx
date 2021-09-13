@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 // import Bedroom from '../pages/Bedroom'
 // import Bathroom from '../pages/Bathroom'
 import Catalogue from "../pages/Catalogues";
-import OnClikKitchen from "../pages/Catalogues/OnClikKitchen";
+
 
 const routes = [
   // {component: Homepage, path: '/'},
@@ -13,8 +13,8 @@ const routes = [
   // {component: SignIn, path: '/sign-in'},
   // {component: Bedroom, path: '/bedroom'},
   // {component: Bathroom, path: '/bedroom'},
-  { component: Catalogue, path: "/catalogue" },
-  { component: OnClikKitchen, path: "/kitchen" },
+  { component: Catalogue, path: "/catalogue", exact: false },
+  
 
 ];
 
@@ -22,8 +22,8 @@ function RouterProvider() {
   return (
     <BrowserRouter>
       <Switch>
-        {routes.map((item) => (
-          <Route exact path={item.path} component={item.component} />
+        {routes.map(( {exact,path, component}) => (
+          <Route exact={exact} path={path} component={component} />
         ))}
       </Switch>
     </BrowserRouter>
