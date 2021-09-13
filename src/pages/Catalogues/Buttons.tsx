@@ -6,7 +6,7 @@ const Buttons = () => {
     <Flex mt="2" justifyContent="space-between" w="full">
       <Button variant="pink">
         {" "}
-        <Link to="/kitchen">kitchen</Link>
+        <Link to="/catalogue/kitchen">kitchen</Link>
       </Button>
       <Button variant="pink">Living room</Button>
       <Button variant="pink">Bedroom</Button>
