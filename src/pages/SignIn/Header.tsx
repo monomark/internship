@@ -6,7 +6,7 @@ const Header = () => {
     <Box>
       <HStack spacing="2rem" mb="1rem" pt="2rem">
         <Button fontSize="3xl">Join</Button>
-        <Divider orientation="vertical" h="30px" borderColor="grey.400" />
+        <Divider orientation="vertical" h="37px" borderColor="grey.400" />
         <Button fontSize="3xl">Sign in</Button>
       </HStack>
       <VStack mb="1rem">
