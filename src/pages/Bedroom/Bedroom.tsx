@@ -5,10 +5,7 @@ const Bedroom = () => {
   return (
     <Container pb="30px">
       <Box>
-        <Box
-          className="poxos"
-          style={{ display: "flex", justifyContent: "center" }}
-        >
+        <Box style={{ display: "flex", justifyContent: "center" }}>
           <Image w="365px" h="660px" src="/assets/nkar1.png" alt="furniture" />
           <Image w="365px" h="660px" src="/assets/nkar2.png" alt="furniture" />
           <Image w="365px" h="660px" src="/assets/nkar3.png" alt="furniture" />
