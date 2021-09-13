@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import {
   Container,
   Input,
@@ -9,7 +9,6 @@ import {
   Text,
   VStack,
   Button,
-  
 } from "@chakra-ui/react";
 
 const pictures = [
@@ -36,7 +35,10 @@ const OnCllickKitchen = () => {
           onChange={(event) => setValue(event.target.value)}
           w="50%"
         />
-        <Button color="black" borderColor="black" > <Link to="/catalogue">back</Link></Button>
+        <Button color="black" borderColor="black">
+          {" "}
+          <Link to="/catalogue">back</Link>
+        </Button>
       </InputGroup>
       <Text color="pink">search result: </Text>
       {value}
