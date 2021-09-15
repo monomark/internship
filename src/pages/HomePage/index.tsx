@@ -1,6 +1,6 @@
 import { Box, Container, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import Navbar from './Navbar';
-// import Header from "../HomePage/Header";
+import Swiper from './Swip'
 
 const Homepage = () => {
   return (
@@ -15,6 +15,9 @@ const Homepage = () => {
               <Button w="200px" variant="blue">
                 View catalog
               </Button>
+            </Box>
+            <Box>
+              <Swiper/>
             </Box>
           </Flex>
         </Flex>
