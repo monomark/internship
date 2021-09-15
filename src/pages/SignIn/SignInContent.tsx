@@ -8,6 +8,7 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
+import InputField from "../../components/InputField";
 
 type FormValues = {
   email: string;
@@ -35,6 +36,16 @@ function SignInContent() {
             />
             {!!errors.email && <p>error email</p>}
           </FormControl>
+
+
+          {/* <InputField
+            isInvalid={!errors.email}
+            errorMessage="Email is required"
+            label="Email"
+            {...register('email', { required: true })}/> */}
+
+
+
           <FormControl>
             <FormLabel>PASSWORD:</FormLabel>
             <Input
