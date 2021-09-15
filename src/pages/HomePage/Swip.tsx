@@ -18,6 +18,12 @@ export default function Swiper () {
             <SwiperSlide>
               test
             </SwiperSlide>
+            <SwiperSlide>
+              test
+            </SwiperSlide>
+            <SwiperSlide>
+              test
+            </SwiperSlide>
       </ReactSwiper>
   )
 }

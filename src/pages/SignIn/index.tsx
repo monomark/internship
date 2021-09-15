@@ -1,20 +1,23 @@
 import React from "react";
-import { Box, Container } from "@chakra-ui/react";
+import { Flex, Box, Container } from "@chakra-ui/react";
 import Header from "./Header";
 import SignInContent from "./SignInContent";
 import Buttonicon from "./Buttonicon";
 
 const SignIn = () => {
   return (
-    <Box minH="100vh" pt="10rem">
+    <Flex
+      align="center"
+      justifyContent="center"
+      minH="100vh" py="8">
       <Container bg="grey.100" p="3rem">
-        <Box bg="grey.200" p="2rem" minH="1100px">
+        <Box bg="grey.200" p="2rem">
           <Header />
           <SignInContent />
           <Buttonicon />
         </Box>
       </Container>
-    </Box>
+    </Flex>
   );
 };
 

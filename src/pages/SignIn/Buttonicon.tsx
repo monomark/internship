@@ -7,12 +7,12 @@ import { ReactComponent as Google } from "../../assets/GOOGLE.svg";
 
 const Buttonicon = () => {
   return (
-    <VStack pt="1rem" maxW="100%">
+    <VStack pt="1rem">
       <Link href="/forgot-password">Forgot password?</Link>
-      <Text fontSize="3xl" fontWeight="700" pt="4rem">
+      <Text fontSize="3xl" fontWeight="700" mt="4rem">
         Or sign up with...
       </Text>
-      <HStack spacing="1.5rem" pt="3rem" maxW="100%">
+      <HStack spacing="1.5rem" pt="3rem">
         <Link href="https://www.facebook.com/">
           <Facebook />
         </Link>
