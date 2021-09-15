@@ -1,9 +1,8 @@
-import React from "react";
 import { Box, Container, Flex, Heading, Text, Button } from "@chakra-ui/react";
-import Navbar from "./Navbar";
+import Navbar from './Navbar';
 // import Header from "../HomePage/Header";
 
-const HomePage = () => {
+const Homepage = () => {
   return (
     <Box w="full" minH="100vh ">
       <Container position="relative" maxW="7xl">
@@ -24,4 +23,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Homepage;
