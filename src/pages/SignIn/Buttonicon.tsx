@@ -8,23 +8,21 @@ import { ReactComponent as Google } from "../../assets/GOOGLE.svg";
 const Buttonicon = () => {
   return (
     <VStack pt="1rem" maxW="100%">
-      <Link>
-        <Text fontSize="sm">Forgot password?</Text>
-      </Link>
+      <Link href="/forgot-password">Forgot password?</Link>
       <Text fontSize="3xl" fontWeight="700" pt="4rem">
         Or sign up with...
       </Text>
       <HStack spacing="1.5rem" pt="3rem" maxW="100%">
-        <Link href="https://www.facebook.com/" isExternal>
+        <Link href="https://www.facebook.com/">
           <Facebook />
         </Link>
-        <Link href="https://www.instagram.com/" isExternal>
+        <Link href="https://www.instagram.com/" target="_blank">
           <Instagram />
         </Link>
-        <Link href="https://vk.com/" isExternal>
+        <Link href="https://vk.com/">
           <Vk />
         </Link>
-        <Link href="https://myaccount.google.com/" isExternal>
+        <Link href="https://myaccount.google.com/">
           <Google />
         </Link>
       </HStack>
