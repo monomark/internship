@@ -1,16 +1,16 @@
-import { Box } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import Header from "../Bedroom/Header";
-import Bedroom from "../Bedroom/Bedroom";
+import Images from "../Bedroom/Images";
 import Search from "../Bedroom/Search";
 
-const Mebel = () => {
+const Bedroom = () => {
   return (
-    <Box>
+    <Container>
       <Header />
-      <Bedroom />
+      <Images />
       <Search />
-    </Box>
+    </Container>
   );
 };
 
-export default Mebel;
+export default Bedroom;

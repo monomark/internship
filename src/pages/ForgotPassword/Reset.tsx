@@ -11,10 +11,9 @@ import {
 
 type FormValues = {
   email: string;
-  password: string | number;
 };
 
-function Inputs() {
+function Reset() {
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
@@ -26,30 +25,20 @@ function Inputs() {
           <Input
             type="email"
             {...register("email")}
-            w="330px"
+            w="full"
             h="60px"
             bg="grey.300"
             mb="1.5rem"
           />
         </FormControl>
-        <FormControl>
-          <FormLabel>PASSWORD:</FormLabel>
-          <Input
-            type="password"
-            {...register("password")}
-            w="330px"
-            h="60px"
-            bg="grey.300"
-            mb="1.5rem"
-          />
-        </FormControl>
+
         <VStack>
           <Button type="submit" variant="pink" minW="260px" h="35px">
-            SIGN IN
+            RESET PASSWORD
           </Button>
         </VStack>
       </form>
     </Flex>
   );
 }
-export default Inputs;
+export default Reset;

@@ -12,13 +12,14 @@ const Pics = () => {
         />
 
         <Text
-          pt="10"
+          
           align="center"
           fontFamily="Rochester"
           color="whiteAlpha.500"
           fontSize="2xl"
-          w="360px"
-          h="260px"
+          pt="57px"
+          pb="57px"
+          
         >
           Make it
           <br />

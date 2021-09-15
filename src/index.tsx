@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ChakraProvider from "./Providers/ChakraProvider";
+import ChakraProvider from "./providers/ChakraProvider";
 
 ReactDOM.render(
   <ChakraProvider>
