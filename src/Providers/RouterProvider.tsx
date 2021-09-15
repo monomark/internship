@@ -1,6 +1,8 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Homepage from "../pages/Homepage";
 // import SignUp from '../pages/SignUp'
+//import SignIn from "../pages/SignIn/index";
+import Bedroom from "../pages/Bedroom";
 import SignIn from "../pages/SignIn";
 import ForgotPassword from "../pages/ForgotPassword";
 
@@ -12,9 +14,9 @@ const routes = [
   // {component: SignUp, path: '/sign-up'},
   { component: SignIn, path: "/sign-in" },
   { component: ForgotPassword, path: "/forgot-password" },
-  // {component: Bedroom, path: '/bedroom'},
-  // {component: Bathroom, path: '/bedroom'},
-  // { component: Catalogue, path: "/catalogue" },
+  {component: Bedroom, path: '/bedroom'},
+  {component: Bathroom, path: '/bedroom'},
+  { component: Catalogue, path: "/catalogue" },
 ];
 
 function RouterProvider() {
