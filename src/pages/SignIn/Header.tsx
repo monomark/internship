@@ -3,7 +3,7 @@ import { HStack, Box, Button, Divider, VStack, Text } from "@chakra-ui/react";
 
 const Header = () => {
   return (
-    <Box>
+    <Box justifyContent="space-between">
       <HStack spacing="2rem" mb="1rem" pt="2rem">
         <Button fontSize="3xl">Join</Button>
         <Divider orientation="vertical" h="37px" borderColor="#000" />
