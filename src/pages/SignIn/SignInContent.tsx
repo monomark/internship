@@ -15,22 +15,25 @@ type FormValues = {
 };
 
 function SignInContent() {
-  const { register, handleSubmit } = useForm<FormValues>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   return (
     <Flex justifyContent="center" pt="2rem">
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">
-          <FormControl>
+          <FormControl
+                       isInvalid={!!errors.email}
+                       >
             <FormLabel>EMAIL ADRESS:</FormLabel>
             <Input
-              type="email"
-              {...register("email")}
+              isInvalid={!!errors.email}
+              {...register("email", { required: true })}
               maxW="100%"
               h="60px"
               bg="white"
             />
+            {!!errors.email && <p>error email</p>}
           </FormControl>
           <FormControl>
             <FormLabel>PASSWORD:</FormLabel>
