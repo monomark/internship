@@ -1,23 +1,23 @@
-import React from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Pagination } from 'swiper/core'
+import { Swiper as ReactSwiper, SwiperSlide } from 'swiper/react'
+import 'swiper/swiper.min.css'
+import 'swiper/components/pagination/pagination.min.css'
 
-import { Image, Box } from "@chakra-ui/react";
+// install Swiper modules
+SwiperCore.use([Pagination])
 
-const Swip = () => {
+const w = window.innerWidth
+
+export default function Swiper () {
   return (
-    <Swiper
-      spaceBetween={50}
-      slidesPerView={3}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
-    >
-      <SwiperSlide>Slide 1 </SwiperSlide>
-      <SwiperSlide>Slide 2</SwiperSlide>
-      <SwiperSlide>Slide 3</SwiperSlide>
-      <SwiperSlide>Slide 4 </SwiperSlide>
-    </Swiper>
-  );
-};
-export default Swip;
-
-//  error typscript can not module swiper?
+      <ReactSwiper
+          navigation
+          slidesPerView={w < 481 ? 1.2 : w < 768 ? 1.2 : w < 992 ? 1.6 : w < 1280 ? 2 : 3}
+          spaceBetween={30}
+          className={"mySwiper"}>
+            <SwiperSlide>
+              test
+            </SwiperSlide>
+      </ReactSwiper>
+  )
+}
