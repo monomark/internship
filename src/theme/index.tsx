@@ -29,9 +29,12 @@ const theme = extendTheme({
   colors: {
     grey: {
       100: "#c4c4c4",
+<<<<<<< HEAD
       200: "#E5E5E5",
       300: "#FFFFFF",
       400: "#000",
+=======
+>>>>>>> 1627d7140e84e652165858fb55bfd585741c4b5b
     },
   },
 });
