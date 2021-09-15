@@ -1,7 +1,6 @@
 import { Flex, Container, Box } from "@chakra-ui/react";
 import Buttons from "./Button";
 import PicLine1 from "./Pic_line1";
-
 import Header from "./Header";
 
 const Kitchen = () => {
