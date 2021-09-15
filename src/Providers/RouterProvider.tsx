@@ -1,8 +1,8 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Homepage from "../pages/HomePage/index";
+import Homepage from "../pages/HomePage";
 // import SignUp from '../pages/SignUp'
-import SignIn from "../pages/SignIn/index";
-import ForgotPassword from "../pages/ForgotPassword/index";
+import SignIn from "../pages/SignIn";
+import ForgotPassword from "../pages/ForgotPassword";
 
 // import Bedroom from '../pages/Bedroom'
 // import Bathroom from '../pages/Bathroom'
