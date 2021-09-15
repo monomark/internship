@@ -7,7 +7,8 @@ import SignIn from "../pages/SignIn";
 import ForgotPassword from "../pages/ForgotPassword";
 
 // import Bedroom from '../pages/Bedroom'
-// import Bathroom from '../pages/Bathroom'
+import Bathroom from '../pages/Bathroom'
+import Kitchen from "../pages/Kitchen/index";
 import Catalogue from "../pages/Catalogues";
 
 const routes = [
@@ -17,6 +18,8 @@ const routes = [
   { component: ForgotPassword, path: "/forgot-password" },
   // {component: Bedroom, path: '/bedroom'},
   // {component: Bathroom, path: '/bedroom'},
+  { component: Catalogue, path: "/catalogue" },
+  { component: Kitchen, path: "/kitchen" },
   { component: Catalogue, path: "/catalogue", exact: false },
  
   {component: Bedroom, path: '/bedroom'},
