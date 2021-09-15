@@ -32,12 +32,24 @@ const theme = extendTheme({
         lineHeight: "30px",
         color: "#3C3C3C",
       },
+      variants: {
+        error: {
+          fontSize: "1rem",
+          color: "#C53030",
+          _before: { content: "'⚠'", pr: "0.5rem" },
+        },
+      },
     },
   },
+
   colors: {
-    grey: {
-      100: "#c4c4c4",
-    },
+    100: "#c4c4c4",
+    200: "#FFFFFF",
+    300: "#000000",
+    400: "#616161",
+    500: "#3C3C3C",
+    600: "#E5E5E5",
+    700: "#C4C4C4",
   },
 });
 

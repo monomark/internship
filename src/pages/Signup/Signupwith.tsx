@@ -7,20 +7,20 @@ import { ReactComponent as Google } from "../../assets/GOOGLE.svg";
 
 const Signupwith = () => {
   return (
-    <VStack spacing="25px">
+    <VStack spacing="1.5rem">
       <Text>Sign up with...</Text>
-      <HStack spacing="45px" pt="26px" pb="38px">
+      <HStack spacing="2.8rem" pt="1.6rem" pb="2.4rem">
         <Link href="https://www.facebook.com/" isExternal>
-          <Facebook height="40px" width="40px" />
+          <Facebook height="2.5rem" width="2.5rem" />
         </Link>
         <Link>
-          <Instagram height="40px" width="40px" />
+          <Instagram height="2.5rem" width="2.5rem" />
         </Link>
         <Link href="https://vk.com/" isExternal>
-          <Vk height="40px" width="40px" />
+          <Vk height="2.5rem" width="2.5rem" />
         </Link>
         <Link href="https://accounts.google.com/" isExternal>
-          <Google height="40px" width="40px" />
+          <Google height="2.5rem" width="2.5rem" />
         </Link>
       </HStack>
       <Text>Or sign up with Email</Text>
