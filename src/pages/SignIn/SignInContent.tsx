@@ -14,7 +14,7 @@ type FormValues = {
   password: string | number;
 };
 
-function SignIn() {
+function SignInContent() {
   const { register, handleSubmit } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
@@ -51,4 +51,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignInContent;

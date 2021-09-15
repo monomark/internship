@@ -1,14 +1,17 @@
 import React from "react";
-import { HStack, Box, Button, Divider, VStack, Text } from "@chakra-ui/react";
+import { HStack, Flex, Box, Button, Divider, VStack, Text } from "@chakra-ui/react";
 
 const Header = () => {
   return (
     <Box>
-      <HStack spacing="2rem" mb="1rem" pt="2rem">
-        <Button fontSize="3xl">Join</Button>
-        <Divider orientation="vertical" h="37px" borderColor="#000" />
-        <Button fontSize="3xl">Sign in</Button>
-      </HStack>
+      <Flex alignItems="center" justifyContent="space">
+        <Flex justifyContent="center" marginRight="-1px"  borderRight="2px solid #000" flex="1">
+          <Button fontSize="2xl">Join</Button>
+        </Flex>
+        <Flex justifyContent="center" marginLeft="-1px" borderLeft="2px solid #000" flex="1">
+          <Button fontSize="2xl">Sign in</Button>
+        </Flex>
+      </Flex>
       <VStack mb="2rem" spacing="3rem">
         <Divider orientation="horizontal" borderColor="#000" w="full" />
         <Text fontSize="3xl" fontWeight="700">
