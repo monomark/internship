@@ -1,6 +1,5 @@
 import Router from './Providers/RouterProvider'
 
-
 function App() {
   return (
     <Router/>
