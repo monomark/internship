@@ -1,4 +1,4 @@
-import Router from "./Providers/RouterProvider";
+import Router from "./providers/RouterProvider";
 
 function App() {
   return <Router />;
