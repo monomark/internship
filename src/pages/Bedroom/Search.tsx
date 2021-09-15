@@ -24,7 +24,10 @@ function Search() {
   };
 
   return (
-    <InputGroup width="340px" style={{ marginLeft: "900px" }}>
+    <InputGroup
+      width="340px"
+      style={{ display: "flex", justifyContent: "flex-end" }}
+    >
       <Input
         pr="50px"
         placeholder="Type something"
