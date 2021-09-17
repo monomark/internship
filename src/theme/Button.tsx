@@ -24,6 +24,10 @@ export const Button = {
         boxShadow: "none",
       },
     },
+    solid: {
+      height: "40px",
+      width: "100px",
+    },
   },
   sizes: {
     sm: { fontSize: "30px", lineHeight: "37px" },

@@ -74,35 +74,21 @@ const SearchBar = () => {
             )
           }
         />
-        <Button height="40px" width="100px" colorScheme="teal" variant="solid">
+        <Button colorScheme="teal" variant="solid">
           Search
         </Button>
       </HStack>
-      <Button
-        height="40px"
-        width="100px"
-        colorScheme="teal"
-        variant="solid"
-        onClick={addPics}
-      >
+      <Button colorScheme="teal" variant="solid" onClick={addPics}>
         Add
       </Button>
       <Flex py="3rem" justifyContent="center">
         {pics?.map((item) => (
           <VStack spacing={4}>
             <HStack>
-              <Button
-                height="40px"
-                width="100px"
-                colorScheme="teal"
-                variant="solid"
-                onClick={() => deletePics(item.id)}
-              >
+              <Button variant="solid" onClick={() => deletePics(item.id)}>
                 Delete
               </Button>
               <Button
-                height="40px"
-                width="100px"
                 colorScheme="teal"
                 variant="solid"
                 onClick={() => onEdit(item.id, item.title)}
@@ -114,8 +100,6 @@ const SearchBar = () => {
             {show === item.id ? (
               <>
                 <Button
-                  height="40px"
-                  width="100px"
                   colorScheme="teal"
                   variant="solid"
                   onClick={() => save(item.title)}
