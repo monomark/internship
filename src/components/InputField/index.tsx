@@ -1,18 +1,13 @@
-import {
-    FormControl,
-    FormLabel,
-    Input
-} from '@chakra-ui/react'
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
-const InputField = (props) => {
-    const { label } = props
-    return (
-        <FormControl>
-            <FormLabel>{label}</FormLabel>
-            <Input
-                ref={ref}/>
-        </FormControl>
-    )
-}
+// const InputField = (props) => {
+//   const { label } = props;
+//   return (
+//     <FormControl>
+//       <FormLabel>{label}</FormLabel>
+//       <Input ref={ref} />
+//     </FormControl>
+//   );
+// };
 
-export default InputField
+// export default InputField;

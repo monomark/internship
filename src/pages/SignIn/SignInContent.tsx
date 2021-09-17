@@ -8,7 +8,7 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
-import InputField from "../../components/InputField";
+// import InputField from "../../components/InputField";
 
 type FormValues = {
   email: string;
@@ -16,16 +16,18 @@ type FormValues = {
 };
 
 function SignInContent() {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   return (
     <Flex justifyContent="center" pt="2rem">
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="1.5rem">
-          <FormControl
-                       isInvalid={!!errors.email}
-                       >
+          <FormControl isInvalid={!!errors.email}>
             <FormLabel>EMAIL ADRESS:</FormLabel>
             <Input
               isInvalid={!!errors.email}
@@ -37,14 +39,11 @@ function SignInContent() {
             {!!errors.email && <p>error email</p>}
           </FormControl>
 
-
           {/* <InputField
             isInvalid={!errors.email}
             errorMessage="Email is required"
             label="Email"
             {...register('email', { required: true })}/> */}
-
-
 
           <FormControl>
             <FormLabel>PASSWORD:</FormLabel>

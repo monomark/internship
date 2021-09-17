@@ -33,6 +33,7 @@ const theme = extendTheme({
       300: "#FFFFFF",
       400: "#000",
     },
+   
   },
 });
 
