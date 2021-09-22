@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-internship-dev-202543-authRole",
+      "UnauthRoleArn": "arn:aws:iam::268777380876:role/amplify-internship-dev-202543-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::268777380876:role/amplify-internship-dev-202543-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-internship-dev-202543-deployment",
+      "UnauthRoleName": "amplify-internship-dev-202543-unauthRole",
+      "StackName": "amplify-internship-dev-202543",
+      "StackId": "arn:aws:cloudformation:us-east-1:268777380876:stack/amplify-internship-dev-202543/bfbee6c0-1bc1-11ec-bfec-0aaf37110cdb",
+      "AmplifyAppId": "d18aixaal4iixs"
+    },
+    "categories": {
+      "auth": {
+        "internship81c25c0d": {}
+      }
+    }
+  }
+}
