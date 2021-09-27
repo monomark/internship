@@ -1,8 +1,14 @@
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports'
+import { RouterProvider, UserProvider } from './providers';
+
+Amplify.configure(awsconfig)
+
 function App() {
   return (
-    <div className="App">
-    s
-    </div>
+    <UserProvider>
+      <RouterProvider/>
+    </UserProvider>
   )
 }
 

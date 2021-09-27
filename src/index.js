@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import ChakraProvider from './providers/ChakraProvider'
+import { ChakraProvider } from './providers'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
