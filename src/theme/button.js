@@ -1,5 +1,5 @@
-export default {
-  baseStyles: {
+const Button = {
+  baseStyle: {
     borderRadius: "10px",
     textTransform: "uppercase",
     color: "#FFFFFF",
@@ -25,6 +25,8 @@ export default {
 
     transparent: {
       fontWeight: "bold",
+      height: 'unset',
+      color: '#000'
     },
   },
   sizes: {
@@ -38,3 +40,5 @@ export default {
     variant: "transparent",
   },
 };
+
+export default Button
