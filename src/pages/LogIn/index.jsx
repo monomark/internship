@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VStack,
   Input,
@@ -9,29 +9,35 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Auth, graphqlOperation, API } from "aws-amplify";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../graphql/queries";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useUser } from "../../hooks";
 
-const LogIn = () => {
+const Login = () => {
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const submit = async (data) => {
+  const { setUserObject } = useUser()
+
+  const history = useHistory()
+
+  const submit = async (form) => {
     try {
+      setLoading(true)
       const cognitoUser = await Auth.signIn({
-        username: data.email.toLowerCase(),
-        password: data.password,
+        username: form.email.toLowerCase(),
+        password: form.password,
       });
 
-      const input = {
-        email: cognitoUser.user.username,
-        password: data.password,
-      };
-      await API.graphql(graphqlOperation(getUser, { input }));
+      const { data } = await API.graphql(graphqlOperation(getUser, {id: cognitoUser.username}))
+      setUserObject({user: data.getUser, loading: false})
+      history.push('/')
     } catch (e) {
+      setLoading(false)
       console.log("error signing in", e);
     }
   };
@@ -41,7 +47,7 @@ const LogIn = () => {
       <Image src="/assets/buy1.png" maxW="600px" h="100vh" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
-          <form noValidate onsubmit={handleSubmit(submit)}>
+          <form noValidate onSubmit={handleSubmit(submit)}>
             <VStack spacing="5" px="8">
               <Text fontSize="3xl" fontWeight="bold">
                 Log In
@@ -52,13 +58,14 @@ const LogIn = () => {
                 {...register("email", { required: true })}
               />
               <Input
+                type="password"
                 placeholder="password"
                 isInvalid={!!errors.password}
                 {...register("password", { required: true })}
               />
-              <Button type="submit">Log In</Button>
+              <Button isLoading={loading} type="submit">Log In</Button>
               <Link to="/forgotpassword">
-                <Button variant="ghost">Forgotten password?</Button>
+                <Button>Forgot password?</Button>
               </Link>
               <Link to="/register">
                 <Button>Create New Account</Button>
@@ -71,4 +78,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Login;

@@ -2,7 +2,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Homepage from "./Homepage";
 import Register from "./Register";
-import LogIn from "./LogIn";
+import Login from "./Login";
 import Verify from "./Verify";
 import ForgottenPassword from "./ForgottenPassword";
 import ResetPassword from "./ResetPassword";
@@ -21,7 +21,7 @@ const config = [
     layout: AuthLayout,
   },
   {
-    component: LogIn,
+    component: Login,
     path: "/login",
     secure: false,
     layout: AuthLayout,

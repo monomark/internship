@@ -18,7 +18,7 @@ const Route = ({
         }
     }, [user])
 
-    // if (loading) return <>...loading</>
+    if (loading) return <>...loading</>
 
     return (
         <Layout>

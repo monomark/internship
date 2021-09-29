@@ -9,7 +9,7 @@ const Homepage = () => {
     return (
         <>
             <Text>
-                hello {user.name}
+                hello {user.email}
             </Text>
         </>
     )
