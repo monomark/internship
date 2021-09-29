@@ -1,6 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import { button } from "./Button";
-import { input } from "./input";
+import { Button } from "./Button"
 
 const theme = extendTheme({
   styles: {
@@ -16,6 +15,7 @@ const theme = extendTheme({
     heading: "Ephesis, sans-serif",
   },
   components: {
+    Button,
     Select: {
       baseStyle: {
         borderRadius: "8px",
