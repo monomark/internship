@@ -1,4 +1,4 @@
-export const button = {
+export const Button = {
   baseStyles: {
     borderRadius: "10px",
     textTransform: "uppercase",
