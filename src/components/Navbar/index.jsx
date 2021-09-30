@@ -4,9 +4,17 @@ import {
     Button,
     Img
 } from '@chakra-ui/react'
+import { Auth } from 'aws-amplify'
 import { Link } from 'react-router-dom'
+import { useUser } from '../../hooks'
 
 const Navbar = () => {
+    const { user, setUserObject } = useUser()
+    const signOut = async () => {
+        setUserObject({user: '', loading: false})
+        Auth.signOut()
+    }
+    
     return (
         <Flex
             px="60px"
@@ -31,11 +39,26 @@ const Navbar = () => {
                         Profile
                     </Button>
                 </Link>
-                <Link to="/login">
-                    <Button>
-                        Login
-                    </Button> 
-                </Link>
+                {
+                    user ? (
+                        <>
+                            <Link to="/profile">
+                                <Button>
+                                    Profile
+                                </Button> 
+                            </Link>
+                            <Button onClick={signOut}>
+                                Sign Out
+                            </Button> 
+                        </>
+                    ) : (
+                        <Link to="/login">
+                            <Button>
+                                Login
+                            </Button> 
+                        </Link>
+                    )
+                }
             </HStack>
         </Flex>
     )

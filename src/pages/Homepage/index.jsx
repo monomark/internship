@@ -10,6 +10,9 @@ const Homepage = () => {
     const { user } = useUser()
     return (
         <>
+            <Text>
+                hello {user.email}
+            </Text>
         </>
     )
 }
