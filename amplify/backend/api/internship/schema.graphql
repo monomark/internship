@@ -8,3 +8,4 @@ type User @model {
   age: Int
   country: String
 }
+
