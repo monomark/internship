@@ -15,7 +15,6 @@ const Navbar = () => {
         Auth.signOut()
     }
     
-
     return (
         <Flex
             px="60px"
