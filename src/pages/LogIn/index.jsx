@@ -15,40 +15,45 @@ import { Link, useHistory } from "react-router-dom";
 import { useUser } from "../../hooks";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { setUserObject } = useUser()
+  const { setUserObject } = useUser();
 
-  const history = useHistory()
+  const history = useHistory();
 
   const submit = async (form) => {
     try {
-      setLoading(true)
+      setLoading(true);
       const cognitoUser = await Auth.signIn({
         username: form.email.toLowerCase(),
         password: form.password,
       });
 
-      const { data } = await API.graphql(graphqlOperation(getUser, {id: cognitoUser.username}))
-      setUserObject({user: data.getUser, loading: false})
-      history.push('/')
+      const { data } = await API.graphql(
+        graphqlOperation(getUser, { id: cognitoUser.username })
+      );
+      setUserObject({ user: data.getUser, loading: false });
+      history.push("/");
     } catch (e) {
-      setLoading(false)
+      setLoading(false);
       console.log("error signing in", e);
     }
   };
 
   return (
     <>
-      <Image src="/assets/buy1.png" maxW="600px" h="100vh" />
+      <Image src="/assets/buy1.png" maxW="600px" h="100vh" w="full" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={handleSubmit(submit)}>
-            <VStack spacing="5" px="8">
+            <VStack spacing="5" px="8" w="full">
+              <Link to="/">
+                <Image src="/assets/logosh.png" maxW="300px" w="full" />
+              </Link>
               <Text fontSize="3xl" fontWeight="bold">
                 Log In
               </Text>
@@ -63,12 +68,14 @@ const Login = () => {
                 isInvalid={!!errors.password}
                 {...register("password", { required: true })}
               />
-              <Button isLoading={loading} type="submit">Log In</Button>
+              <Button isLoading={loading} type="submit" variant="red">
+                Log In
+              </Button>
               <Link to="/forgotpassword">
                 <Button>Forgot password?</Button>
               </Link>
               <Link to="/register">
-                <Button>Create New Account</Button>
+                <Button variant="red">Create New Account</Button>
               </Link>
             </VStack>
           </form>
