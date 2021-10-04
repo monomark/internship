@@ -11,8 +11,6 @@ const Footer = () => {
   return (
     <Flex
       px="60px"
-      mt="100vh"
-      minW="100vh"
       justifyContent="space-between"
       bg="red.300"
     >

@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-import { Storage } from "@aws-amplify/storage";
+import React, { useRef, useState } from "react";
 import {
   Box,
   HStack,
@@ -18,6 +16,8 @@ const FileUploud = () => {
     if (e.target.files && e.target.files.length > 0)
       setSelectedFile(e.target.files[0]);
   };
+
+  const input = useRef(null)
 
   // async function onChange(e) {
   //   const selectedFile = e.target.files[0];
@@ -55,8 +55,8 @@ const FileUploud = () => {
           </Box>
         )}
 
-        <Input type="file" onChange={onChange} accept="image/*" />
-
+        <input ref={input} style={{display: 'none'}} type="file" onChange={onChange} accept="image/*" />
+        <Button onClick={() => input.current?.click()}>Upload</Button>
         <HStack spacing="2rem">
           <Button variant="red" onClick={removeSelectedFile}>
             Remove This Image

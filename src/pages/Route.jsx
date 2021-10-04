@@ -1,5 +1,5 @@
 import React, { useEffect }  from "react";
-import { Route as ReactRout, useHistory } from 'react-router-dom'
+import { Route as ReactRout, useHistory, useLocation } from 'react-router-dom'
 import { useUser } from '../hooks'
 
 const Route = ({
@@ -11,14 +11,17 @@ const Route = ({
 }) => {
     const { user, loading } = useUser()
     const history = useHistory()
+    const location = useLocation()
 
     useEffect(() => {
-        if (!user && secure && !loading) {
+        if (secure && !user && !loading) {
             history.push('/')
         }
-    }, [user])
+    }, [secure, user, loading, history, location, path])
 
-    if (loading) return <>...loading</>
+    if (loading) {
+        return <>...loading</>
+    }
 
     return (
         <Layout>

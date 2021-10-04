@@ -23,11 +23,14 @@ const Navbar = () => {
             alignItems="center"
             justifyContent="space-between"
             bg="red.300">
-            <Img
-                width="50px"
-                height="50px"
-                objectFit="cover"
-                src="/logo192.png"/>
+            <Link to="/">
+                <Img
+                    width="50px"
+                    height="50px"
+                    objectFit="cover"
+                    src="/logo192.png"/>
+            </Link>
+
             <HStack spacing="4">
                 <Link to="/products">
                     <Button>

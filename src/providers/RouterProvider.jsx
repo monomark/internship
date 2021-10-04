@@ -13,7 +13,7 @@ const RouterProvider = () => {
                             path={path}
                             exact
                             Layout={layout}
-                            private={secure}
+                            secure={secure}
                             component={component}
                             />
                     ))

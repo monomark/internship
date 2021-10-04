@@ -48,8 +48,8 @@ const config = [
   {
     component: Profile,
     path: "/profile",
-    secure: false,
-    layout: AuthLayout,
+    secure: true,
+    layout: DefaultLayout,
   },
 ];
 
