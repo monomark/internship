@@ -2,10 +2,11 @@ import AuthLayout from "../layouts/AuthLayout";
 import DefaultLayout from "../layouts/DefaultLayout";
 import Homepage from "./Homepage";
 import Register from "./Register";
-import Login from "./Login";
+import Login from "./LogIn";
 import Verify from "./Verify";
 import ForgottenPassword from "./ForgottenPassword";
 import ResetPassword from "./ResetPassword";
+import Profile from "./Profile";
 
 const config = [
   {
@@ -44,7 +45,12 @@ const config = [
     secure: false,
     layout: AuthLayout,
   },
+  {
+    component: Profile,
+    path: "/profile",
+    secure: false,
+    layout: AuthLayout,
+  },
 ];
 
 export default config;
-
