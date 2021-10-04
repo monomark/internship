@@ -49,6 +49,7 @@ const ResetPassword = () => {
                 onChange={(event) => setValue(event.target.value)}
               />
               <Input
+                type="password"
                 placeholder="new password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
