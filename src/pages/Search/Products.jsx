@@ -1,4 +1,4 @@
-import { Container, Flex, Text, HStack, SimpleGrid, GridItem } from "@chakra-ui/react";
+import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import Card from "../../components/Card";
 
 const Best = [
