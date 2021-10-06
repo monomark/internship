@@ -7,6 +7,8 @@ import Verify from "./Verify";
 import ForgottenPassword from "./ForgottenPassword";
 import ResetPassword from "./ResetPassword";
 import Profile from "./Profile";
+import ChangePassword from "./Changepassword";
+import UserDetails from "./UserDetails";
 
 const config = [
   {
@@ -48,6 +50,18 @@ const config = [
   {
     component: Profile,
     path: "/profile",
+    secure: true,
+    layout: DefaultLayout,
+  },
+  {
+    component: ChangePassword,
+    path: "/changepassword",
+    secure: true,
+    layout: DefaultLayout,
+  },
+  {
+    component: UserDetails,
+    path: "/userdetails",
     secure: true,
     layout: DefaultLayout,
   },
