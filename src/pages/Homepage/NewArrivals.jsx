@@ -13,18 +13,15 @@ const Best = [
 const NewArrivals = () => {
   return (
     <Box  >
-      <Container maxW="container.xl">
         <Text fontSize="2xl" as="b">
           Популярные категории
         </Text>
         
-        <Stack mt="10" direction={{ base: "column", sm: "column", md: "row" }}  >
+        <Stack mt="10" direction={{ base: "column", md: "row" }}  >
           {Best.map(item => (
             <OtherCard value={item} />
           ))}
         </Stack>
-       
-      </Container>
     </Box>
   );
 };

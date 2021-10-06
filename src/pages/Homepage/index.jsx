@@ -1,32 +1,27 @@
 import React from 'react'
 import {
-    Text,Image, Container,
+    Container,
+    Box,
+    Flex,
+    Heading,
+    Text,
 } from '@chakra-ui/react'
-import { useUser } from '../../hooks'
-import SelectBar from './SelectBar';
 import BestSellers from './BestSellers';
 import NewArrivals from './NewArrivals';
 import Subs from './Subs';
+import Header from './Header';
 const Homepage = () => {
-    const { user } = useUser()
     return (
         <>
-            <Text>
-                hello {user.name}
-            </Text>
-            
-      <SelectBar />
-      <Container maxW="container.xl"
-      mt="5" minH="100vh" >
-        <Image src="/assets/images/stock-photo.jpg" w="full" h="500" />
-        <BestSellers />
-      
-        <NewArrivals/>
-     
-      </Container>
-      <Subs/>
-    </>
-        
+            <Header/>
+            <Container
+                maxW="container.xl"
+                mt="5">
+                <BestSellers />
+                <NewArrivals/>
+            </Container>
+            <Subs/>
+        </>  
     )
 }
 
