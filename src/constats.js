@@ -10,3 +10,10 @@ export const COUNTRIES = [
     'Australia',
     'Austria',
 ]
+
+export const TYPES =[
+    "wood",
+    "metall",
+    "plastic",
+    "other"
+] 

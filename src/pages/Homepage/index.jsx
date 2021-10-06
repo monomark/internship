@@ -1,19 +1,24 @@
 import React from 'react'
 import {
-    Text,
-    Button,
-    Input,
+    Container,
 } from '@chakra-ui/react'
-import { useUser } from '../../hooks'
+import BestSellers from './BestSellers';
+import NewArrivals from './NewArrivals';
+import Subs from './Subs';
+import Header from './Header';
 
 const Homepage = () => {
-    const { user } = useUser()
     return (
         <>
-            <Text>
-                hello {user.email}
-            </Text>
-        </>
+            <Header/>
+            <Container
+                maxW="container.xl"
+                mt="5">
+                <BestSellers />
+                <NewArrivals/>
+            </Container>
+            <Subs/>
+        </>  
     )
 }
 

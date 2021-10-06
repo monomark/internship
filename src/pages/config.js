@@ -44,6 +44,12 @@ const config = [
     secure: false,
     layout: AuthLayout,
   },
+  {
+    component: CreateProduct,
+    path: '/create-product',
+    secure: false,
+    layout: AuthLayout,
+   }
 ]
 
 export default config
