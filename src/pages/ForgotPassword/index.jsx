@@ -14,30 +14,34 @@ import { useHistory, Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [value, setValue] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+
   const history = useHistory();
-  const toast = useToast()
+  const toast = useToast();
 
   const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return re.test(String(email).toLowerCase())
-}
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
 
   const submit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!validateEmail(value)) {
-      return setError(true)
+      return setError(true);
     }
-    setError(false)
+    setError(false);
 
     Auth.forgotPassword(value)
       .then(() => history.push(`/resetpassword?email=${value}`))
-      .catch(() => toast({
-        title: "User not found.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      }))
+      .catch(() =>
+        toast({
+          title: "User not found.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
+      );
   };
 
   return (
