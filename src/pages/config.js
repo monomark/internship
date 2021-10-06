@@ -1,8 +1,12 @@
-import AuthLayout from "../layouts/AuthLayout";
-import DefaultLayout from "../layouts/DefaultLayout";
-import Homepage from "./Homepage";
-import Register from "./Register";
-import Search from "./Search";
+import AuthLayout from "../layouts/AuthLayout"
+import DefaultLayout from "../layouts/DefaultLayout"
+import Homepage from "./Homepage"
+import Register from "./Register"
+import Login from "./Login"
+import Verify from "./Verify"
+import ForgottenPassword from "./ForgotPassword"
+import ResetPassword from "./ResetPassword"
+import CreateProduct from "./CreateProduct"
 
 const config = [
   {
@@ -11,6 +15,11 @@ const config = [
     secure: false,
     layout: DefaultLayout,
   },
+    component: Search,
+    path: "/search",
+    secure: false,
+    layout: AuthLayout,
+  },
   {
     component: Register,
     path: "/register",
@@ -18,11 +27,35 @@ const config = [
     layout: AuthLayout,
   },
   {
-    component: Search,
-    path: "/search",
+    component: Login,
+    path: "/login",
     secure: false,
     layout: AuthLayout,
   },
-];
+  {
+    component: Verify,
+    path: "/verify",
+    secure: false,
+    layout: AuthLayout,
+  },
+  {
+    component: ForgottenPassword,
+    path: "/forgotpassword",
+    secure: false,
+    layout: AuthLayout,
+  },
+  {
+    component: ResetPassword,
+    path: "/resetpassword",
+    secure: false,
+    layout: AuthLayout,
+  },
+  {
+    component: CreateProduct,
+    path: '/create-product',
+    secure: false,
+    layout: AuthLayout,
+   }
+]
 
 export default config;

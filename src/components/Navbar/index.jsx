@@ -2,11 +2,20 @@ import {
     HStack,
     Flex,
     Button,
-    Img
+    Img,
+    Box,
 } from '@chakra-ui/react'
+import { Auth } from 'aws-amplify'
 import { Link } from 'react-router-dom'
+import { useUser } from '../../hooks'
 
 const Navbar = () => {
+    const { user, setUserObject } = useUser()
+    const signOut = async () => {
+        setUserObject({user: '', loading: false})
+        Auth.signOut()
+    }
+    
     return (
         <Flex
             px="60px"
@@ -15,27 +24,52 @@ const Navbar = () => {
             alignItems="center"
             justifyContent="space-between"
             bg="red.300">
-            <Img
-                width="50px"
-                height="50px"
-                objectFit="cover"
-                src="/logo192.png"/>
+            <HStack spacing="8">
+                <Img
+                    width="50px"
+                    height="50px"
+                    objectFit="cover"
+                    src="/logo192.png"/>
+                
+                <Flex
+                    as={Link}
+                    to={user ? '/create-product' : '/login'}
+                    alignItems="center"
+                    justifyContent="center"
+                    bg="white"
+                    borderRadius="100"
+                    height="50px"
+                    width="50px"
+                    boxShadow="medium">
+                    +
+                </Flex>
+            </HStack>
             <HStack spacing="4">
                 <Link to="/products">
                     <Button>
                         Products
                     </Button>
                 </Link>
-                <Link to="/profile">
-                    <Button>
-                        Profile
-                    </Button>
-                </Link>
-                <Link to="/login">
-                    <Button>
-                        Login
-                    </Button> 
-                </Link>
+                {
+                    user ? (
+                        <>
+                            <Link to="/profile">
+                                <Button>
+                                    Profile
+                                </Button> 
+                            </Link>
+                            <Button onClick={signOut}>
+                                Sign Out
+                            </Button> 
+                        </>
+                    ) : (
+                        <Link to="/login">
+                            <Button>
+                                Login
+                            </Button> 
+                        </Link>
+                    )
+                }
             </HStack>
         </Flex>
     )
