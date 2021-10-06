@@ -7,6 +7,7 @@ import Verify from "./Verify"
 import ForgottenPassword from "./ForgotPassword"
 import ResetPassword from "./ResetPassword"
 import CreateProduct from "./CreateProduct"
+import Search from './Search'
 
 const config = [
   {
@@ -20,6 +21,12 @@ const config = [
     path: "/register",
     secure: false,
     layout: AuthLayout,
+  },
+  {
+    component: Search,
+    path: "/products",
+    secure: false,
+    layout: DefaultLayout,
   },
   {
     component: Login,
