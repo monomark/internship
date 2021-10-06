@@ -7,27 +7,39 @@ import {
   Button,
   Text,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
-import { useHistory, Link } from "react-router-dom";
-import { useUser } from "../../hooks";
+import { useHistory, Link, useLocation } from "react-router-dom";
 
 const ResetPassword = () => {
   const [value, setValue] = useState("");
   const [password, setPassword] = useState("");
-  const { userObject, setUserObject } = useUser();
+  const [error, setError] = useState(false);
+  const params = new URLSearchParams(useLocation().search);
   const history = useHistory();
+  const toast = useToast();
 
   const submit = async (event) => {
     event.preventDefault();
-    Auth.forgotPasswordSubmit({
-      username: userObject.username,
-      value,
-      new_password: password,
-    })
-      .then(({ data }) => setUserObject({ user: data.getUser, loading: false }))
-      .catch((e) => console.log("Invalid passsword", e));
-    history.push("./login");
+    const username = params.get("email");
+
+    if (!value || !value.trim()) {
+      return setError(true);
+    }
+    if (!password || !password.trim()) {
+      return setError(true);
+    }
+    Auth.forgotPasswordSubmit(username, value, password)
+      .then(() => history.push("/login"))
+      .catch(() =>
+        toast({
+          title: "InValid code or password.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        })
+      );
   };
 
   return (
@@ -35,7 +47,7 @@ const ResetPassword = () => {
       <Image src="/assets/reset.png" maxW="600px" h="100vh" w="full" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
-          <form onsubmit={submit}>
+          <form onSubmit={submit}>
             <VStack px="8" spacing="5" w="full">
               <Link to="/">
                 <Image src="/assets/logosh.png" maxW="300px" w="full" />
@@ -44,11 +56,13 @@ const ResetPassword = () => {
                 Please enter new password
               </Text>
               <Input
+                isInvalid={error}
                 placeholder="code"
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
               />
               <Input
+                isInvalid={error}
                 type="password"
                 placeholder="new password"
                 value={password}
