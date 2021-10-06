@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Input,
@@ -16,6 +16,8 @@ import { COUNTRIES } from "../../constats";
 import { useHistory, Link } from "react-router-dom";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -26,6 +28,7 @@ const Register = () => {
 
   const submit = async (data) => {
     try {
+      setLoading(true);
       const cognitoUser = await Auth.signUp({
         username: data.email.toLowerCase(),
         password: data.password,
@@ -39,11 +42,11 @@ const Register = () => {
         last_name: data.last_name,
         age: data.age,
         country: data.country,
-        password: data.password,
       };
       await API.graphql(graphqlOperation(createUser, { input }));
       history.push(`/verify?username=${cognitoUser.user.username}`);
     } catch (e) {
+      setLoading(false);
       console.log("register error", e);
     }
   };
@@ -108,7 +111,7 @@ const Register = () => {
                 ))}
               </Select>
 
-              <Button type="submit" variant="red">
+              <Button isLoading={loading} type="submit" variant="red">
                 Register
               </Button>
               <Link to="/login">
