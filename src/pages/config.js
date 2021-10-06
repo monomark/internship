@@ -16,11 +16,6 @@ const config = [
     secure: false,
     layout: DefaultLayout,
   },
-    component: Search,
-    path: "/search",
-    secure: false,
-    layout: AuthLayout,
-  },
   {
     component: Register,
     path: "/register",
