@@ -10,13 +10,14 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
-import { useHistory, Link, useLocation } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import useQueryParams from "../../hooks/useQueryParams";
 
 const ResetPassword = () => {
   const [value, setValue] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const params = new URLSearchParams(useLocation().search);
+  const params = useQueryParams()
   const history = useHistory();
   const toast = useToast();
 
@@ -44,7 +45,7 @@ const ResetPassword = () => {
 
   return (
     <>
-      <Image src="/assets/reset.png" maxW="600px" h="100vh" w="full" />
+      <Image display={{base: 'none', md: 'block'}} src="/assets/reset.png" objectFit="contain" maxW="400px" h="100vh" w="full" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form onSubmit={submit}>

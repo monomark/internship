@@ -41,8 +41,13 @@ const Login = () => {
       setUserObject({ user: data.getUser, loading: false });
       history.push("/");
     } catch (e) {
+      if (e.message === 'User is not confirmed.') {
+         return history.push(`/verify?username=${form.email.toLowerCase()}`)
+      }
+      console.log(e.message)
       setLoading(false);
-      console.log("error signing in", e);
+
+
       toast({
         title: "User not found.",
         status: "error",

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Input, Button, Flex, Box, VStack, Image } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { useLocation, useHistory, Link } from "react-router-dom";
+import useQueryParams from "../../hooks/useQueryParams";
 
 const Verify = () => {
   const [value, setValue] = useState("");
   const history = useHistory();
   const [error, setError] = useState(false);
-  const params = new URLSearchParams(useLocation().search);
+  const params = useQueryParams()
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
