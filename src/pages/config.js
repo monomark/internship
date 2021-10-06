@@ -2,6 +2,7 @@ import AuthLayout from '../layouts/AuthLayout'
 import DefaultLayout from '../layouts/DefaultLayout'
 import Homepage from './Homepage'
 import Register from './Register'
+import CreateProduct from './CreateProduct'
 
 const config = [
     {
@@ -13,6 +14,12 @@ const config = [
     {
         component: Register,
         path: '/register',
+        secure: false,
+        layout: AuthLayout,
+    },
+    {
+        component: CreateProduct,
+        path: '/createproduct',
         secure: false,
         layout: AuthLayout,
     }
