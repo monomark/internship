@@ -7,6 +7,7 @@ import {
   Box,
   Flex,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Auth, API, graphqlOperation } from "aws-amplify";
@@ -24,6 +25,7 @@ const Login = () => {
   const { setUserObject } = useUser();
 
   const history = useHistory();
+  const toast = useToast();
 
   const submit = async (form) => {
     try {
@@ -41,6 +43,12 @@ const Login = () => {
     } catch (e) {
       setLoading(false);
       console.log("error signing in", e);
+      toast({
+        title: "User not found.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
@@ -62,6 +70,7 @@ const Login = () => {
                 isInvalid={!!errors.email}
                 {...register("email", { required: true })}
               />
+
               <Input
                 type="password"
                 placeholder="password"
