@@ -8,13 +8,15 @@ const Search = () => {
   const { register, watch, getValues, setValue } = useForm();
 
   const search = watch("search", "");
+  const type = watch("type", "");
+  const price = watch("price", "");
 
   return (
     <Container maxW="container.xl" m="5" minH="100vh">
       <Stack spacing="8">
         <Header setValue={setValue} getValues={getValues} register={register} />
         <SelectForm register={register} />
-        <Products search={search} />
+        <Products price={price} type={type} search={search} />
       </Stack>
     </Container>
   );
