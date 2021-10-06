@@ -1,15 +1,15 @@
 import { extendTheme } from "@chakra-ui/react";
-import Button from "./Button"
+import Button from "./button";
 
 const theme = extendTheme({
   styles: {
     global: {
       "html, body": {
-        fontSize: '1rem',
-        color: '#000',
-        },
+        fontSize: "1rem",
+        color: "#000",
       },
     },
+  },
   fonts: {
     body: "Roboto, sans-serif",
     heading: "Roboto, sans-serif",
