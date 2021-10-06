@@ -1,20 +1,14 @@
-import React from 'react'
-import {
-    Text,
-    Button,
-    Input,
-} from '@chakra-ui/react'
-import { useUser } from '../../hooks'
+import React from "react";
+import { Text, Button, Input } from "@chakra-ui/react";
+import { useUser } from "../../hooks";
 
 const Homepage = () => {
-    const { user } = useUser()
-    return (
-        <>
-            <Text>
-                hello {user.email}
-            </Text>
-        </>
-    )
-}
+  const { user } = useUser();
+  return (
+    <>
+      <Text>hello {user.email}</Text>
+    </>
+  );
+};
 
-export default Homepage
+export default Homepage;
