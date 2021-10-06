@@ -1,17 +1,12 @@
 import React from 'react'
 import {
     Container,
-    Box,
-    Flex,
-    Heading,
-    Text,
-    Button,
-    Input,
 } from '@chakra-ui/react'
 import BestSellers from './BestSellers';
 import NewArrivals from './NewArrivals';
 import Subs from './Subs';
 import Header from './Header';
+
 const Homepage = () => {
     return (
         <>
