@@ -54,7 +54,7 @@ const Login = () => {
 
   return (
     <>
-      <Image src="/assets/buy1.png" maxW="600px" h="100vh" w="full" />
+      <Image display={{base: 'none', md: 'block'}} objectFit="contain" src="/assets/buy1.png" maxW="400px" h="100vh" w="full" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={handleSubmit(submit)}>
