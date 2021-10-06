@@ -1,15 +1,15 @@
-import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports'
-import { RouterProvider, UserProvider } from './providers';
+import Amplify from "aws-amplify";
+import awsconfig from "./aws-exports";
+import { RouterProvider, UserProvider } from "./providers";
 
-Amplify.configure(awsconfig)
+Amplify.configure(awsconfig);
 
 function App() {
   return (
     <UserProvider>
-      <RouterProvider/>
+      <RouterProvider />
     </UserProvider>
-  )
+  );
 }
 
-export default App
+export default App;

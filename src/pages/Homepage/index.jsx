@@ -5,6 +5,8 @@ import {
     Flex,
     Heading,
     Text,
+    Button,
+    Input,
 } from '@chakra-ui/react'
 import BestSellers from './BestSellers';
 import NewArrivals from './NewArrivals';
