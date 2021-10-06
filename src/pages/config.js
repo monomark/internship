@@ -6,6 +6,7 @@ import Login from "./Login"
 import Verify from "./Verify"
 import ForgottenPassword from "./ForgotPassword"
 import ResetPassword from "./ResetPassword"
+import CreateProduct from "./CreateProduct"
 
 const config = [
   {
