@@ -1,44 +1,43 @@
-import React from "react";
-import { Box, Input, Select, VStack, Button } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import {  graphqlOperation, API } from "aws-amplify";
-import { createTodo, updateTodo, deleteTodo } from './graphql/mutations';
-import { TYPES } from "../../constats";
+import React, {useState} from "react"
+import { Box, Input, Select, VStack, Button } from "@chakra-ui/react"
+import { useForm } from "react-hook-form"
+import { graphqlOperation, API } from "aws-amplify"
+import { createProduct } from '../../graphql/mutations'
+import { TYPES } from "../../constats"
+import { useHistory } from "react-router"
 
 const CreateProduct = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
+  const [loading, setLoading] = useState(false)
+  const history = useHistory()
 
   const submit = async (data) => {
+    const { title, description, price, type, warranty } = data
     try {
-     
+      setLoading(true)
       const input = {
-       
-        title: data.tittle,
-        description: data.description,
-        type: data.type,
-        price: data.price,
-        warranty: data.warranty
-      };
-      await API.graphql(graphqlOperation(createTodo, { input }));
+        title,
+        description,
+        type,
+        price,
+        warranty,
+      }
+      await API.graphql(graphqlOperation(createProduct, { input }))
+      history.replace('/')
     } catch (e) {
-      console.log("createTodo error", e);
+      setLoading(false)
+      console.log("createTodo error", e)
     }
-  };
+  }
 
   return (
     <Box w="full" maxW="600px">
       <form noValidate onSubmit={handleSubmit(submit)}>
         <VStack px="8" spacing="4">
-          {/* <Input
-            placeholder="image "
-            isInvalid={!!errors.image}
-            {...register("image ", { required: true })}
-            type="file"
-          /> */}
           <Input
             placeholder="название"
             isInvalid={!!errors.tittle}
@@ -52,7 +51,7 @@ const CreateProduct = () => {
           <Input
             placeholder="цена"
             isInvalid={!!errors.price}
-            {...register("price", { required: true })}
+            {...register("price", { required: true, valueAsNumber: true })}
             type="number"
             pattern="[0-9]*"
           />
@@ -73,11 +72,11 @@ const CreateProduct = () => {
               </option>
             ))}
           </Select>
-          <Button type="submit">Create</Button>
+          <Button isLoading={loading} type="submit">Create</Button>
         </VStack>
       </form>
     </Box>
-  );
-};
+  )
+}
 
-export default CreateProduct;
+export default CreateProduct

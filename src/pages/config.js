@@ -19,7 +19,7 @@ const config = [
     },
     {
         component: CreateProduct,
-        path: '/createproduct',
+        path: '/create-product',
         secure: false,
         layout: AuthLayout,
     }
