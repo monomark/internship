@@ -4,7 +4,6 @@ import {
 } from '@chakra-ui/react'
 import { useUser } from '../../hooks'
 import SelectBar from './SelectBar';
-import Photo from './stock-photo.jpg';
 import BestSellers from './BestSellers';
 import NewArrivals from './NewArrivals';
 import Subs from './Subs';
@@ -19,7 +18,7 @@ const Homepage = () => {
       <SelectBar />
       <Container maxW="container.xl"
       mt="5" minH="100vh" >
-        <Image src={Photo} w="full" h="500" />
+        <Image src="/assets/images/stock-photo.jpg" w="full" h="500" />
         <BestSellers />
       
         <NewArrivals/>

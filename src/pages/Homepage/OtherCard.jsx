@@ -1,10 +1,10 @@
 import { Box, Image} from '@chakra-ui/react';
-import Photo from './stock-photo.jpg';
+
 
 function OtherCard(props) {
   return (
     <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" _hover={{ shadow: 'lg' }}>
-      <Image src={Photo} alt={props.value.price} />
+      <Image src="/assets/images/stock-photo.jpg" alt={props.value.price} />
 
       <Box p="6">
         <Box
