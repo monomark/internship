@@ -17,7 +17,7 @@ const FileUploud = () => {
       setSelectedFile(e.target.files[0]);
   };
 
-  const input = useRef(null)
+  const input = useRef(null);
 
   // async function onChange(e) {
   //   const selectedFile = e.target.files[0];
@@ -49,13 +49,21 @@ const FileUploud = () => {
               name="User"
               size="4xl"
               src={URL.createObjectURL(selectedFile)}
+              w="300px"
+              h="300px"
             >
               <AvatarBadge bg="green.500" boxSize="1.25rem" />
             </Avatar>
           </Box>
         )}
 
-        <input ref={input} style={{display: 'none'}} type="file" onChange={onChange} accept="image/*" />
+        <input
+          ref={input}
+          style={{ display: "none" }}
+          type="file"
+          onChange={onChange}
+          accept="image/*"
+        />
         <Button onClick={() => input.current?.click()}>Upload</Button>
         <HStack spacing="2rem">
           <Button variant="red" onClick={removeSelectedFile}>

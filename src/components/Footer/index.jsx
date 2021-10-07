@@ -9,13 +9,9 @@ import { ReactComponent as Youtube } from "../../assets/yout.svg";
 
 const Footer = () => {
   return (
-    <Flex
-      px="60px"
-      justifyContent="space-between"
-      bg="red.300"
-    >
+    <Flex px="60px" justifyContent="space-between" w="full" bg="red.300">
       <VStack spacing="6">
-        <Img width="70px" height="70px" src="/logo192.png" />
+        <Img width="70px" height="70px" src="/logo192.png" objectFit="cover" />
         <HStack spacing="2rem" pt="2rem">
           <Link to="https://www.facebook.com/" external>
             <Facebook />
