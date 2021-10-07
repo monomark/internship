@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-// import { updateUser } from "../../graphql/mutations";
 import {
   Flex,
   Box,
@@ -16,39 +14,46 @@ import { Auth } from "aws-amplify";
 
 const UserDetails = () => {
   const history = useHistory();
-  const [value, setValue] = useState();
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { register, handleSubmit, errors, watch } = useForm({});
-  // const password = useRef({});
-  // password.current = watch("password", "");
+  const [error, setError] = useState();
+  const [value, setValue] = useState({
+    newPassword: "",
+    oldPassword: "",
+    confirmPassword: "",
+  });
+
+  const validateForm = () => {
+    return (
+      value.oldPassword.length > 0 &&
+      value.newPassword.length > 0 &&
+      value.oldPassword === value.confirmPassword
+    );
+  };
 
   const onChange = (e) => {
     setValue(e.target.value);
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm(value)) {
+      return setError(true);
+    }
+    setError(false);
+
+    try {
+      // setLoading(true);
+      const currentUser = await Auth.currentAuthenticatedUser();
+      await Auth.changePassword(
+        currentUser,
+        value.oldPassword,
+        value.newPassword
+      );
+      history.push("/profile");
+    } catch (e) {
+      // loading(false);
+      console.log("error password", e);
+    }
   };
-
-  Auth.currentAuthenticatedUser()
-    .then((user) => {
-      return Auth.changePassword(user, value, password);
-    })
-    .then((data) => console.log(data))
-    .catch((err) => console.log(err));
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     setLoading(true);
-  //     await Auth.currentAuthenticatedUser(user, "oldPassword", "newPassword");
-  //     history.push("/profile");
-  //   } catch (e) {
-  //     loading(false);
-  //     console.log("error password", e);
-  //   }
-  // };
 
   return (
     <Flex justifyContent="center" pt="3rem" mb="1rem">
@@ -63,35 +68,31 @@ const UserDetails = () => {
             <FormLabel>CURRENT PASSWORD:</FormLabel>
             <Input
               type="password"
-              value={value}
+              value={oldPassword}
               onChange={onChange}
-              ref={register({
-                required: "You must specify a password",
-                minLength: {
-                  value: 8,
-                  message: "Password must have at least 8 characters",
-                },
-              })}
+              isInvalid={error}
             />
-            {errors.password && <Text>{errors.password.message}</Text>}
 
             <FormLabel>NEW PASSWORD:</FormLabel>
             <Input
               type="password"
-              value={password}
+              value={newPassword}
               onChange={onChange}
-              ref={register({
-                validate: (value) =>
-                  value === password.current || "The passwords do not match",
-              })}
+              isInvalid={error}
             />
-            {errors.password_repeat && (
-              <Text>{errors.password_repeat.message}</Text>
-            )}
+            <FormLabel>CONFIRM PASSWORD:</FormLabel>
+            <Input
+              type="password"
+              value={confirmPassword}
+              onChange={onChange}
+              isInvalid={error}
+            />
+
             <Button
               variant="pink"
               type="submit"
-              onClick={handleSubmit(onSubmit)}
+              // isLoading={loading}
+              onClick={onSubmit}
             >
               SAVE CHANGES
             </Button>
