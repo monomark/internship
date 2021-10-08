@@ -56,7 +56,7 @@ const CreatedProducts = () => {
       >
         {products.map((item) => (
           <GridItem key={item.id}>
-            {/* <CloseButton onClick={() => deleteProducts(data)}></CloseButton> */}
+            <CloseButton onClick={() => deleteProducts(item)}></CloseButton>
             <Card value={item} />
           </GridItem>
         ))}
