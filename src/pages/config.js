@@ -1,14 +1,14 @@
-import AuthLayout from "../layouts/AuthLayout";
-import DefaultLayout from "../layouts/DefaultLayout";
-import Homepage from "./Homepage";
-import Register from "./Register";
-import Login from "./LogIn";
-import Verify from "./Verify";
-import ForgottenPassword from "./ForgottenPassword";
-import ResetPassword from "./ResetPassword";
-import Profile from "./Profile";
-import ChangePassword from "./Changepassword";
-import UserDetails from "./UserDetails";
+import AuthLayout from '../layouts/AuthLayout';
+import DefaultLayout from '../layouts/DefaultLayout';
+import Homepage from './Homepage';
+import Register from './Register';
+import Login from './Login';
+import Verify from './Verify';
+import ForgottenPassword from './ForgottenPassword';
+import ResetPassword from './ResetPassword';
+import Profile from './Profile';
+import ChangePassword from './Changepassword';
+import UserDetails from './UserDetails';
 
 const config = [
   {
