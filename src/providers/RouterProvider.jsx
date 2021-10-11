@@ -6,13 +6,13 @@ const RouterProvider = () => {
   return (
     <Router>
       <Switch>
-        {routes.map(({ path, layout, secure, component }) => (
+        {routes.map(({ path, layout, secure, component, exact }) => (
           <Route
             key={path}
             path={path}
-            exact
+            exact={exact}
             Layout={layout}
-            private={secure}
+            secure={secure}
             component={component}
           />
         ))}
