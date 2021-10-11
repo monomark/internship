@@ -8,3 +8,13 @@ type User @model {
   age: Int
   country: String
 }
+
+type Product @model {
+  id: ID!
+  title: String
+  description: String
+  type: String
+  price: Int
+  warranty: String
+  image: String
+}
