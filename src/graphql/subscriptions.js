@@ -49,3 +49,48 @@ export const onDeleteUser = /* GraphQL */ `
     }
   }
 `;
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct {
+    onCreateProduct {
+      id
+      title
+      description
+      type
+      price
+      warranty
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct {
+    onUpdateProduct {
+      id
+      title
+      description
+      type
+      price
+      warranty
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct {
+    onDeleteProduct {
+      id
+      title
+      description
+      type
+      price
+      warranty
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;

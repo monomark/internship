@@ -1,14 +1,25 @@
-import React from "react";
-import { Text, Button, Input } from "@chakra-ui/react";
-import { useUser } from "../../hooks";
+import React from 'react'
+import {
+    Container,
+} from '@chakra-ui/react'
+import BestSellers from './BestSellers';
+import NewArrivals from './NewArrivals';
+import Subs from './Subs';
+import Header from './Header';
 
 const Homepage = () => {
-  const { user } = useUser();
-  return (
-    <>
-      <Text>hello {user.email}</Text>
-    </>
-  );
-};
+    return (
+        <>
+            <Header/>
+            <Container
+                maxW="container.xl"
+                mt="5">
+                <BestSellers />
+                <NewArrivals/>
+            </Container>
+            <Subs/>
+        </>  
+    )
+}
 
 export default Homepage;

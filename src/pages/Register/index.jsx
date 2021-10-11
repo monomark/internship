@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Input,
@@ -13,16 +13,22 @@ import { useForm } from "react-hook-form";
 import { Auth, graphqlOperation, API } from "aws-amplify";
 import { createUser } from "../../graphql/mutations";
 import { COUNTRIES } from "../../constats";
+import { useHistory, Link } from "react-router-dom";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const history = useHistory();
+
   const submit = async (data) => {
     try {
+      setLoading(true);
       const cognitoUser = await Auth.signUp({
         username: data.email.toLowerCase(),
         password: data.password,
@@ -36,21 +42,25 @@ const Register = () => {
         last_name: data.last_name,
         age: data.age,
         country: data.country,
-        password: data.password,
       };
       await API.graphql(graphqlOperation(createUser, { input }));
+      history.push(`/verify?username=${cognitoUser.user.username}`);
     } catch (e) {
+      setLoading(false);
       console.log("register error", e);
     }
   };
 
   return (
     <>
-      <Image src="/assets/onlineshop.png" maxW="600px" h="100vh" />
+      <Image src="/assets/onlineshop.png" maxW="600px" h="100vh" w="full" />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={handleSubmit(submit)}>
-            <VStack px="8" spacing="5">
+            <VStack px="8" spacing="5" w="full">
+              <Link to="/">
+                <Image src="/assets/logosh.png" maxW="300px" w="full" />
+              </Link>
               <Text fontSize="3xl" fontWeight="bold">
                 Register
               </Text>
@@ -101,7 +111,12 @@ const Register = () => {
                 ))}
               </Select>
 
-              <Button type="submit">Register</Button>
+              <Button isLoading={loading} type="submit" variant="red">
+                Register
+              </Button>
+              <Link to="/login">
+                <Button variant="red">Log In</Button>
+              </Link>
             </VStack>
           </form>
         </Box>
