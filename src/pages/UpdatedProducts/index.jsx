@@ -13,18 +13,30 @@ import { useForm } from "react-hook-form";
 import { API } from "aws-amplify";
 import { useHistory, Link } from "react-router-dom";
 import * as mutations from "../../graphql/mutations";
+
 import useQueryParams from "../../hooks/useQueryParams";
 import { TYPES } from "../../constats";
+import { useGetProject } from "../../hooks";
 
 const UpdatedProducts = () => {
   const [loading, setLoading] = useState(false);
   const params = useQueryParams();
+  const { isLoading, data, refetch } = useGetProject(params.get('id'))
+  const [project, setProject] = useState({
+  })
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    reset,
+  } = useForm({
+    defaultValues: {
+      title: project.title,
+      price: project.price,
+      type: project.type,
+    }
+  });
 
   const history = useHistory();
 
@@ -50,6 +62,21 @@ const UpdatedProducts = () => {
     }
   };
 
+  useEffect(() => {
+    refetch()
+  }, [])
+
+  useEffect(() => {
+    if (!data) return
+
+      reset({
+        title: data.data.getProduct.title,
+        type: data.data.getProduct.type,
+        price: data.data.getProduct.price,
+      })
+  }, [data])
+
+  if (isLoading) return <>...loading</>
   return (
     <>
       <Flex justifyContent="center" w="full">
