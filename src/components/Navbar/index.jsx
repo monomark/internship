@@ -20,63 +20,24 @@ const Navbar = () => {
       bg="red.300"
     >
       <HStack spacing="8">
-        <Img width="50px" height="50px" objectFit="cover" src="/logo192.png" />
-
-        <Flex
-            px="60px"
-            height="80px"
-            w="full"
+        <Link to="/">
+          <Img
+              width="50px"
+              height="50px"
+              objectFit="cover"
+              src="/logo192.png"/>
+          </Link>
+          <Flex
+            as={Link}
+            to={user ? '/create-product' : '/login'}
             alignItems="center"
-            justifyContent="space-between"
-            bg="red.300">
-            <HStack spacing="8">
-              <Link to="/">
-                <Img
-                    width="50px"
-                    height="50px"
-                    objectFit="cover"
-                    src="/logo192.png"/>
-               </Link>
-                <Flex
-                    as={Link}
-                    to={user ? '/create-product' : '/login'}
-                    alignItems="center"
-                    justifyContent="center"
-                    bg="white"
-                    borderRadius="100"
-                    height="50px"
-                    width="50px"
-                    boxShadow="medium">
-                    +
-                </Flex>
-            </HStack>
-            <HStack spacing="4">
-                <Link to="/products">
-                    <Button>
-                        Products
-                    </Button>
-                </Link>
-                {
-                    user ? (
-                        <>
-                            <Link to="/profile">
-                                <Button>
-                                    Profile
-                                </Button> 
-                            </Link>
-                            <Button onClick={signOut}>
-                                Sign Out
-                            </Button> 
-                        </>
-                    ) : (
-                        <Link to="/login">
-                            <Button>
-                                Login
-                            </Button> 
-                        </Link>
-                    )
-                }
-            </HStack>
+            justifyContent="center"
+            bg="white"
+            borderRadius="100"
+            height="50px"
+            width="50px"
+            boxShadow="medium">
+            +
         </Flex>
       </HStack>
       <HStack spacing="4">

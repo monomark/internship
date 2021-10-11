@@ -103,14 +103,12 @@ const config = [
     secure: false,
     layout: DefaultLayout,
   },
-];
-   },
-   {
-    component: GetAllProducts,
-    path: '/get-allproducts',
-    secure: false,
-    layout: AuthLayout,
-   }
+  {
+  component: GetAllProducts,
+  path: '/get-allproducts',
+  secure: false,
+  layout: AuthLayout,
+  }
 ]
 
 export default config;
