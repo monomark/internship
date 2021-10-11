@@ -1,29 +1,29 @@
 const Button = {
   baseStyle: {
-    borderRadius: "10px",
-    textTransform: "uppercase",
-    color: "#FFFFFF",
+    borderRadius: '10px',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
     _focus: {
-      boxShadow: "none",
+      boxShadow: 'none',
     },
   },
   variants: {
     blue: {
-      bg: "#3182CE",
+      bg: '#3182CE',
     },
     red: {
-      bg: "#E53E3E",
+      bg: '#E53E3E',
     },
     green: {
-      bg: "#38A169",
+      bg: '#38A169',
     },
     pink: {
       bg: "#DB7093",
     },
 
     gradient: {
-      bg: "linear-gradient(88.21deg, #F72A80 9.41%, rgba(173, 11, 230, 0.5) 120.3%);",
-      textTransform: "uppercase",
+      bg: 'linear-gradient(88.21deg, #F72A80 9.41%, rgba(173, 11, 230, 0.5) 120.3%);',
+      textTransform: 'uppercase',
     },
 
     transparent: {
@@ -39,8 +39,8 @@ const Button = {
     xl: {},
   },
   defaultProps: {
-    size: "md",
-    variant: "transparent",
+    size: 'md',
+    variant: 'transparent',
   },
 };
 

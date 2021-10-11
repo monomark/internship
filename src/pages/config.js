@@ -1,4 +1,3 @@
-
 import AuthLayout from "../layouts/AuthLayout"
 import DefaultLayout from "../layouts/DefaultLayout"
 import Homepage from "./Homepage"
@@ -13,6 +12,8 @@ import GetAllProducts from "./GetAllProducts"
 import ChangePassword from './Changepassword';
 import UserDetails from './UserDetails';
 import Profile from './Profile';
+import MyProducts from "./MyProducts";
+import UpdatedProducts from "./UpdatedProducts";
 
 const config = [
   {
@@ -86,9 +87,23 @@ const config = [
   },
   {
     component: CreateProduct,
-    path: '/create-product',
+    path: "/create-product",
     secure: false,
     layout: AuthLayout,
+  },
+  {
+    component: MyProducts,
+    path: "/myproducts",
+    secure: false,
+    layout: DefaultLayout,
+  },
+  {
+    component: UpdatedProducts,
+    path: "/update-product",
+    secure: false,
+    layout: DefaultLayout,
+  },
+];
    },
    {
     component: GetAllProducts,
