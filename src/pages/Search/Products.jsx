@@ -11,15 +11,27 @@ const BEST = [
 ]
 
 const Products = ({ search, type, price }) => {
-  const [filtered, setFiltered] = useState([])
   const [filters, setFilters] = useState({
-    type: '',
-    price: ''
+    name: '',
+    type: ''
   })
 
   useEffect(() => {
-    setFiltered(type ? BEST.filter(item => item.type.toLocaleLowerCase() === type) : BEST)
-  }, [type, price])
+    setFilters({ name: search, type })
+  }, [type, search])
+
+  const filtered = (item) => {
+    let bool = true
+    Object.keys(filters).map(key => {
+      if (bool && key === 'name') {
+        bool = item[key].includes(filters[key])
+      }
+      if (bool && key === 'type') {
+        bool = item[key]?.toLowerCase() === filters[key]
+      }
+    })
+    return bool
+  }
 
   return (
     <SimpleGrid
@@ -31,7 +43,7 @@ const Products = ({ search, type, price }) => {
       }}
       spacing="6"
     >
-      {filtered.filter(item => item.name.includes(search)).map((item) => (
+      {BEST.filter(item => filtered(item) === true).map((item) => (
         <GridItem key={item.name}>
           <Card value={item} />
         </GridItem>
