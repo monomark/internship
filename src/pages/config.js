@@ -9,6 +9,7 @@ import ResetPassword from "./ResetPassword";
 import CreateProduct from "./CreateProduct";
 import Search from "./Search";
 import MyProducts from "./MyProducts";
+import UpdatedProducts from "./UpdatedProducts";
 
 const config = [
   {
@@ -62,6 +63,12 @@ const config = [
   {
     component: MyProducts,
     path: "/myproducts",
+    secure: false,
+    layout: DefaultLayout,
+  },
+  {
+    component: UpdatedProducts,
+    path: "/update-product",
     secure: false,
     layout: DefaultLayout,
   },
