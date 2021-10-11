@@ -1,49 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Text, Box, Flex } from "@chakra-ui/react";
-import { API } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { listProducts } from "../../graphql/queries";
-import * as mutations from "../../graphql/mutations";
+import { deleteProduct } from "../../graphql/mutations";
 const GetAllProducts = () => {
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false)
 
-  const downloadCards = async () => {
+  const deleteProd = async (id) => {
     try {
-      const allProducts = await API.graphql({ query: listProducts });
-      const data = allProducts.data.listProducts.items;
-      Array.from(data);
-      console.log(data[0].title);
-      setList(data);
-    } catch (e) {
-      console.log("Get all products problem", e);
-    }
-  };
-
-  const deleteProd = async (item) => {
-    try {
-      const deletedAray = list.filter((ind) => ind != item);
+      setLoading(true)
+      const deletedAray = list.filter((ind) => ind.id !== id);
       setList(deletedAray);
-
-      console.log(item.id, "its id");
-      const todoDetails = {
-        id: item.id,
-      };
-
-      await API.graphql({
-        query: mutations.deleteProduct,
-        variables: { input: todoDetails },
-      });
+      await API.graphql(graphqlOperation( deleteProduct,
+        { input: {id} }));
+      setLoading(false)
     } catch (e) {
+      setLoading(false)
       console.log("product not deleted", e);
     }
   };
 
+  useEffect( async () => {
+    const data = await API.graphql(graphqlOperation(listProducts))
+    setList(data.data.listProducts.items)
+  }, [])
+  
   return (
-    <Flex flexDirection="row">
-      <Box border="2px solid black" h="100vh" bg="gray.100" m="2">
-        <Button onClick={downloadCards} variant="red" m="4">
-          Download all
-        </Button>
-      </Box>
       <Flex direction="column">
         {list.map((item) => (
           <Box border="2px solid black" borderRadius="lg" my="2" px="5">
@@ -53,17 +36,17 @@ const GetAllProducts = () => {
             <Text>-{item.warranty}</Text>
             <Text>-{item.price}</Text>
             <Button
+              isLoading={loading}
               variant="red"
               size="sm"
               m="2"
-              onClick={() => deleteProd(item)}
+              onClick={() => deleteProd(item.id)}
             >
               delete
             </Button>
           </Box>
         ))}
       </Flex>
-    </Flex>
   );
 };
 

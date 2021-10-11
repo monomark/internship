@@ -6,7 +6,6 @@ import {
   VStack,
   Button,
   Image,
-  Link,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { graphqlOperation, API } from "aws-amplify";
@@ -22,6 +21,8 @@ const CreateProduct = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  const goBack = () => history.goBack()
 
   const submit = async (data) => {
     const { title, description, price, type, warranty } = data;
@@ -44,6 +45,11 @@ const CreateProduct = () => {
 
   return (
     <>
+
+      <Button onClick={goBack}>
+        Back
+      </Button>
+      
       <Image
         display={{ base: "none", md: "block" }}
         objectFit="contain"
@@ -93,10 +99,6 @@ const CreateProduct = () => {
             <Button isLoading={loading} type="submit" variant="red">
               Create
             </Button>
-
-            <Link to="/get-allproducts">
-              <Button variant="red">to get products</Button>
-            </Link>
           </VStack>
         </form>
       </Box>
