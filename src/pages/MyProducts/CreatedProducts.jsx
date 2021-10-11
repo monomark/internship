@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { SimpleGrid, GridItem, CloseButton, Button } from "@chakra-ui/react";
-import Card from "../../components/Card";
+import { SimpleGrid, GridItem, CloseButton, Button, Box } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
 import { API, graphqlOperation } from "aws-amplify";
 import { listProducts } from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
-import { useHistory } from "react-router-dom";
+import Card from "../../components/Card";
 
 const CreatedProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [show, setShow] = useState(true);
-
-  const history = useHistory();
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const [products, setProducts] = useState([])
+  const history = useHistory()
 
   const fetchProducts = async () => {
     try {
-      const productsData = await API.graphql(graphqlOperation(listProducts));
-      console.log(productsData);
-      const productList = productsData.data.listProducts.items;
-      console.log("Product List", productList);
+      const { data } = await API.graphql(graphqlOperation(listProducts));
+      const productList = data.listProducts.items;
       setProducts(productList);
     } catch (e) {
       console.log("error on fetching products", e);
@@ -43,7 +36,9 @@ const CreatedProducts = () => {
     }
   };
 
-  console.log(products);
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -58,17 +53,35 @@ const CreatedProducts = () => {
       >
         {products.map((item) => (
           <GridItem
+            position="relative"
             key={item.id}
-            onMouseMove={() => setShow(true)}
-            onMouseLeave={() => setShow(false)}
+            _hover={{
+              '& > div:first-of-type': {
+                display: 'block'
+              }
+            }}
           >
-            {show && (
+            <Box
+              top="20px"
+              right="20px"
+              display="none"
+              position="absolute"
+              as={motion.div}
+              transition={{
+                duration: 30,
+              }}
+              initial={{
+                  opacity: 0,
+              }}
+              animate={{
+                  opacity: 1,
+              }}>
               <CloseButton
                 _hover={{ bg: "yellow.100" }}
                 onClick={() => deleteProducts(item)}
               ></CloseButton>
-            )}
 
+            </Box>
             <Card value={item} />
             <Button
               float="right"
