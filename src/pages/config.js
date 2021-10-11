@@ -9,6 +9,7 @@ import ForgottenPassword from "./ForgotPassword"
 import ResetPassword from "./ResetPassword"
 import CreateProduct from "./CreateProduct"
 import Search from './Search'
+import GetAllProducts from "./GetAllProducts"
 import ChangePassword from './Changepassword';
 import UserDetails from './UserDetails';
 import Profile from './Profile';
@@ -86,6 +87,12 @@ const config = [
   {
     component: CreateProduct,
     path: '/create-product',
+    secure: false,
+    layout: AuthLayout,
+   },
+   {
+    component: GetAllProducts,
+    path: '/get-allproducts',
     secure: false,
     layout: AuthLayout,
    }
