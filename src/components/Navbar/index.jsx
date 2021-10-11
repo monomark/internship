@@ -25,12 +25,13 @@ const Navbar = () => {
             justifyContent="space-between"
             bg="red.300">
             <HStack spacing="8">
+              <Link to="/">
                 <Img
                     width="50px"
                     height="50px"
                     objectFit="cover"
                     src="/logo192.png"/>
-                
+               </Link>
                 <Flex
                     as={Link}
                     to={user ? '/create-product' : '/login'}

@@ -1,34 +1,24 @@
-import React, { useEffect }  from "react";
-import { Route as ReactRout, useHistory } from 'react-router-dom'
-import { useUser } from '../hooks'
+import React from "react";
+import { Route as ReactRout, useHistory } from "react-router-dom";
+import { useUser } from "../hooks";
 
-const Route = ({
-    path,
-    exact,
-    Layout,
-    secure,
-    component,
-}) => {
-    const { user, loading } = useUser()
-    const history = useHistory()
+const Route = ({ path, exact, Layout, secure, component }) => {
+  const { user, loading } = useUser();
+  const history = useHistory();
 
-    useEffect(() => {
-        if (!user && secure && !loading) {
-            history.push('/')
-        }
-    }, [user])
+  if (!loading && !user && secure) {
+    history.push("/");
+  }
 
-    if (loading) return <>...loading</>
+  if (loading) {
+    return <>...loading</>;
+  }
 
-    return (
-        <Layout>
-            <ReactRout
-                path={path}
-                component={component}
-                exact={exact}
-                />
-        </Layout>
-    )
-}
+  return (
+    <Layout>
+      <ReactRout path={path} component={component} exact={exact} />
+    </Layout>
+  );
+};
 
-export default Route
+export default Route;
