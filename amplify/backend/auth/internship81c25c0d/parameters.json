@@ -1,6 +1,6 @@
 {
     "identityPoolName": "internship81c25c0d_identitypool_81c25c0d",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "intern81c25c0d",
     "userPoolName": "internship81c25c0d_userpool_81c25c0d",
     "autoVerifiedAttributes": [

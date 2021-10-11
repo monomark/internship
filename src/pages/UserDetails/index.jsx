@@ -1,14 +1,15 @@
-import React from "react";
-import { useHistory } from "react-router";
-import { Flex, Box, Input, Img, Text, VStack, Button } from "@chakra-ui/react";
-import { API } from "aws-amplify";
-import * as mutations from "../../graphql/mutations";
-import { useForm } from "react-hook-form";
-import { useUser } from "../../hooks";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { Flex, Box, Input, Img, Text, VStack, Button, useToast } from '@chakra-ui/react';
+import { API, graphqlOperation } from 'aws-amplify';
+import { updateUser } from '../../graphql/mutations';
+import { useForm } from 'react-hook-form';
+import { useUser } from '../../hooks';
 
 const UserDetails = () => {
-  const history = useHistory();
-  const { user } = useUser();
+  const history = useHistory()
+  const { user, setUserObject } = useUser()
+  const toast = useToast()
 
   const {
     register,
@@ -20,24 +21,31 @@ const UserDetails = () => {
       last_name: user.last_name,
       age: user.age,
       phone_number: user.phone_number,
-      // email: user.email,
+      email: user.email,
     },
   });
 
   const submit = async (data) => {
     try {
       const details = {
-        // email: data.email,
+        id: user.id,
         phone_number: data.phone_number,
         first_name: data.first_name,
         last_name: data.last_name,
         age: data.age,
       };
 
-      await API.graphql({
-        query: mutations.updateUser,
-        variables: { input: details },
-      });
+      await API.graphql(graphqlOperation(updateUser, { input: details }))
+      toast({
+        title: "Saved!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      })
+      setUserObject({loading: false, user: {
+        ...user,
+        ...details,
+      }})
       history.push("/profile");
     } catch (e) {
       console.log(e, "change   error ");
@@ -56,28 +64,33 @@ const UserDetails = () => {
           </Text>
           <form noValidate onSubmit={handleSubmit(submit)}>
             <VStack px="8" spacing="5">
+            <Input
+                value={user.email}
+                disabled
+                placeholder="Email"
+              />
               <Input
                 // defaultValue={user.first_name}
                 type="text"
-                placeholder="FirstName"
+                placeholder="First Name"
                 isInvalid={!!errors.first_name}
                 {...register("first_name", { required: true })}
               />
               <Input
-                placeholder="lastName"
+                placeholder="Last Name"
                 isInvalid={!!errors.last_name}
                 {...register("last_name", { required: true })}
                 type="text"
               />
               <Input
-                placeholder="age"
+                placeholder="Ages"
                 isInvalid={!!errors.age}
                 {...register("age", { required: true })}
                 type="number"
                 pattern="[0-9+]*"
               />
               <Input
-                placeholder="phoneNumber"
+                placeholder="Phone Number"
                 isInvalid={!!errors.phone_number}
                 {...register("phone_number", { required: true })}
                 type="number"
