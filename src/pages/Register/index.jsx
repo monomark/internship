@@ -14,6 +14,7 @@ import { Auth, graphqlOperation, API } from "aws-amplify";
 import { createUser } from "../../graphql/mutations";
 import { COUNTRIES } from "../../constats";
 import { useHistory, Link } from "react-router-dom";
+import authService from "../../core/service/authService";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -29,10 +30,12 @@ const Register = () => {
   const submit = async (data) => {
     try {
       setLoading(true);
-      const cognitoUser = await Auth.signUp({
-        username: data.email.toLowerCase(),
-        password: data.password,
-      });
+      // const cognitoUser = await Auth.signUp({
+      //   username: data.email.toLowerCase(),
+      //   password: data.password,
+      // });
+      console.log("jhfehf");
+      const cognitoUser = await authService().signUp(data);
 
       const input = {
         id: cognitoUser.userSub,

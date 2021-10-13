@@ -14,9 +14,13 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 import { getUser } from "../../graphql/queries";
 import { Link, useHistory } from "react-router-dom";
 import { useUser } from "../../hooks";
+import authService from "../../core/service/authService";
+import { authUseCase } from "../../core/factory";
+import { useLogin } from "../../hooks";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const { isLoading, data, refetch } = useLogin();
   const {
     register,
     handleSubmit,
@@ -30,10 +34,12 @@ const Login = () => {
   const submit = async (form) => {
     try {
       setLoading(true);
-      const cognitoUser = await Auth.signIn({
-        username: form.email.toLowerCase(),
-        password: form.password,
-      });
+      // const cognitoUser = await Auth.signIn({
+      //   username: form.email.toLowerCase(),
+      //   password: form.password,
+      // });
+
+      const cognitoUser = data;
 
       const { data } = await API.graphql(
         graphqlOperation(getUser, { id: cognitoUser.username })
@@ -41,12 +47,11 @@ const Login = () => {
       setUserObject({ user: data.getUser, loading: false });
       history.push("/");
     } catch (e) {
-      if (e.message === 'User is not confirmed.') {
-         return history.push(`/verify?username=${form.email.toLowerCase()}`)
+      if (e.message === "User is not confirmed.") {
+        return history.push(`/verify?username=${form.email.toLowerCase()}`);
       }
-      console.log(e.message)
+      console.log(e.message);
       setLoading(false);
-
 
       toast({
         title: "User not found.",
@@ -59,7 +64,14 @@ const Login = () => {
 
   return (
     <>
-      <Image display={{base: 'none', md: 'block'}} objectFit="contain" src="/assets/buy1.png" maxW="400px" h="100vh" w="full" />
+      <Image
+        display={{ base: "none", md: "block" }}
+        objectFit="contain"
+        src="/assets/buy1.png"
+        maxW="400px"
+        h="100vh"
+        w="full"
+      />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={handleSubmit(submit)}>

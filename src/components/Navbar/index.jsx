@@ -2,12 +2,13 @@ import { HStack, Flex, Button, Img, Box } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks";
+import authService from "../../core/service/authService";
 
 const Navbar = () => {
   const { user, setUserObject } = useUser();
   const signOut = async () => {
     setUserObject({ user: "", loading: false });
-    Auth.signOut();
+    authService().signOut();
   };
 
   return (
@@ -22,22 +23,24 @@ const Navbar = () => {
       <HStack spacing="8">
         <Link to="/">
           <Img
-              width="50px"
-              height="50px"
-              objectFit="cover"
-              src="/logo192.png"/>
-          </Link>
-          <Flex
-            as={Link}
-            to={user ? '/create-product' : '/login'}
-            alignItems="center"
-            justifyContent="center"
-            bg="white"
-            borderRadius="100"
-            height="50px"
             width="50px"
-            boxShadow="medium">
-            +
+            height="50px"
+            objectFit="cover"
+            src="/logo192.png"
+          />
+        </Link>
+        <Flex
+          as={Link}
+          to={user ? "/create-product" : "/login"}
+          alignItems="center"
+          justifyContent="center"
+          bg="white"
+          borderRadius="100"
+          height="50px"
+          width="50px"
+          boxShadow="medium"
+        >
+          +
         </Flex>
       </HStack>
       <HStack spacing="4">

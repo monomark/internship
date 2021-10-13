@@ -1,7 +1,7 @@
-import project from './projectUseCase'
+import project from "./projectUseCase";
+import auth from "./authUseCase";
 
-import {
-    projectService,
-} from '../service'
+import { projectService, authService } from "../service";
 
-export const projectUseCase = project(projectService())
+export const projectUseCase = project(projectService());
+export const authUseCase = auth(authService());
