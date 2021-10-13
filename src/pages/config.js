@@ -1,17 +1,17 @@
-import AuthLayout from "../layouts/AuthLayout"
-import DefaultLayout from "../layouts/DefaultLayout"
-import Homepage from "./Homepage"
-import Register from "./Register"
-import Login from "./Login"
-import Verify from "./Verify"
-import ForgottenPassword from "./ForgotPassword"
-import ResetPassword from "./ResetPassword"
-import CreateProduct from "./CreateProduct"
-import Search from './Search'
-import GetAllProducts from "./GetAllProducts"
-import ChangePassword from './Changepassword';
-import UserDetails from './UserDetails';
-import Profile from './Profile';
+import AuthLayout from "../layouts/AuthLayout";
+import DefaultLayout from "../layouts/DefaultLayout";
+import Homepage from "./Homepage";
+import Register from "./Register";
+import Login from "./LogIn";
+import Verify from "./Verify";
+import ForgottenPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import CreateProduct from "./CreateProduct";
+import Search from "./Search";
+import GetAllProducts from "./GetAllProducts";
+import ChangePassword from "./Changepassword";
+import UserDetails from "./UserDetails";
+import Profile from "./Profile";
 import MyProducts from "./MyProducts";
 import UpdatedProducts from "./UpdatedProducts";
 
@@ -104,11 +104,11 @@ const config = [
     layout: DefaultLayout,
   },
   {
-  component: GetAllProducts,
-  path: '/get-allproducts',
-  secure: false,
-  layout: AuthLayout,
-  }
-]
+    component: GetAllProducts,
+    path: "/get-allproducts",
+    secure: false,
+    layout: AuthLayout,
+  },
+];
 
 export default config;
