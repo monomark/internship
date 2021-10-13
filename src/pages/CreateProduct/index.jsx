@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Input,
-  Select,
-  VStack,
-  Button,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { graphqlOperation, API } from "aws-amplify";
-import { createProduct } from "../../graphql/mutations";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
+import { useCreateProduct } from "../../hooks";
 
 const CreateProduct = () => {
   const {
@@ -22,7 +14,7 @@ const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const goBack = () => history.goBack()
+  const goBack = () => history.goBack();
 
   const submit = async (data) => {
     const { title, description, price, type, warranty } = data;
@@ -35,7 +27,8 @@ const CreateProduct = () => {
         price,
         warranty,
       };
-      await API.graphql(graphqlOperation(createProduct, { input }));
+      // await API.graphql(graphqlOperation(createProduct, { input }));
+      useCreateProduct(input);
       history.replace("/");
     } catch (e) {
       setLoading(false);
@@ -45,11 +38,8 @@ const CreateProduct = () => {
 
   return (
     <>
+      <Button onClick={goBack}>Back</Button>
 
-      <Button onClick={goBack}>
-        Back
-      </Button>
-      
       <Image
         display={{ base: "none", md: "block" }}
         objectFit="contain"
