@@ -15,12 +15,11 @@ const CreateProduct = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const input = useRef(null);
-  const [selected, setSelected] = useState();
+  const [image, setImage] = useState('');
 
   const goBack = () => history.goBack();
 
   const submit = async (data) => {
-    console.log(data);
     try {
       const { title, description, price, type, warranty } = data;
       setLoading(true);
@@ -30,6 +29,7 @@ const CreateProduct = () => {
         type,
         price,
         warranty,
+        image,
       };
       await API.graphql(graphqlOperation(createProduct, { input }));
       history.replace("/");
@@ -42,9 +42,9 @@ const CreateProduct = () => {
   const onChange = async (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      setSelected(file);
       try {
-        await Storage.put(file.name, file);
+        const url = await Storage.put(file.name, file);
+        setImage(url.key)
       } catch (error) {
         console.log("Error uploading file: ", error);
       }
@@ -89,19 +89,19 @@ const CreateProduct = () => {
               isInvalid={!!errors.warranty}
               {...register("warranty", { required: true })}
             />
-            {selected && (
-              <Image
+            {image &&  <Image
                 size="4xl"
-                src={URL.createObjectURL(selected)}
+                objectFit="cover"
+                src={process.env.REACT_APP_STORAGE + image}
                 w="300px"
                 h="300px"
-              />
-            )}
+              />}
+             
             <Input
-              placeholder="image"
+              // placeholder="image"
+              display="none"
               isInvalid={!!errors.image}
-              {...register("image", { required: true })}
-              style={{ display: "none" }}
+              // {...register("image", { required: true })}
               type="file"
               onChange={onChange}
               accept="image/*"
@@ -110,7 +110,6 @@ const CreateProduct = () => {
             <Button isLoading={loading} onClick={() => input.current?.click()}>
               Upload
             </Button>
-            {/* <Button variant="red" onClick={removeSelectedFile}> */}
             Remove This Image
             {/* {/* </Button> */}
             <Select

@@ -1,16 +1,14 @@
 import { authUseCase } from "../../core/factory";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 
-const useLogin = (form) => {
-  const { isLoading, error, data, refetch } = useQuery("auth", () =>
-    authUseCase.login(form)
-  );
+const useLogin = () => {
+  const { mutate: login, isLoading, error, data } = useMutation(authUseCase.login);
 
   return {
     isLoading,
     error,
     data,
-    refetch,
+    login,
   };
 };
 

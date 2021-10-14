@@ -1,10 +1,12 @@
-import { Auth } from "aws-amplify";
+import { Auth, graphqlOperation } from "aws-amplify";
+import { getUser } from "../../graphql/queries";
+import { useUser } from "../../hooks";
 
 const authService = () => {
-  const signUp = async (data) =>
+  const signUp = async (email, password) =>
     await Auth.signUp({
-      username: data.email.toLowerCase(),
-      password: data.password,
+      username: email.toLowerCase(),
+      password,
     });
 
   const confirmSignUp = async (username, value) =>
@@ -12,11 +14,12 @@ const authService = () => {
 
   const resendSignUp = async (username) => await Auth.resendSignUp(username);
 
-  const login = async (form) =>
-    await Auth.signIn({
-      username: form.email.toLowerCase(),
-      password: form.password,
-    });
+  const login = async ({email, password}) => await Auth.signIn({
+    username: email.toLowerCase(),
+    password: password,
+  });
+
+    
 
   const forgetPassword = async (email) => await Auth.forgotPassword(email);
 
