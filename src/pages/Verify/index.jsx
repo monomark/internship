@@ -3,12 +3,13 @@ import { Input, Button, Flex, Box, VStack, Image } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { useLocation, useHistory, Link } from "react-router-dom";
 import useQueryParams from "../../hooks/useQueryParams";
+import authService from "../../core/service/authService";
 
 const Verify = () => {
   const [value, setValue] = useState("");
   const history = useHistory();
   const [error, setError] = useState(false);
-  const params = useQueryParams()
+  const params = useQueryParams();
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
@@ -17,7 +18,8 @@ const Verify = () => {
     const username = params.get("username");
     try {
       setLoading(true);
-      await Auth.confirmSignUp(username, value);
+      // await Auth.confirmSignUp(username, value);
+      authService().confirmSignUp(username, value);
       history.push("/login");
     } catch (e) {
       setLoading(false);

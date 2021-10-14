@@ -8,7 +8,7 @@ const Card = ({ value }) => {
       boxShadow="0 0 24px 4px rgba(0, 0, 0, 0.15)"
     >
       <Image
-        src="/assets/images/photo.jpg"
+        src={process.env.REACT_APP_STORAGE + value.image}
         w="full"
         objectFit="cover"
         h="200px"
