@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { graphqlOperation, API, Storage } from "aws-amplify";
-import { createProduct } from "../../graphql/mutations";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
 import { useCreateProduct } from "../../hooks";
