@@ -34,12 +34,12 @@ const Login = () => {
   const submit = async (form) => {
     try {
       setLoading(true);
-      // const cognitoUser = await Auth.signIn({
-      //   username: form.email.toLowerCase(),
-      //   password: form.password,
-      // });
+      const cognitoUser = await Auth.signIn({
+        username: form.email.toLowerCase(),
+        password: form.password,
+      });
 
-      const cognitoUser = data;
+      // const cognitoUser = data(form);
 
       const { data } = await API.graphql(
         graphqlOperation(getUser, { id: cognitoUser.username })

@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Input,
-  Select,
-  VStack,
-  Button,
-  Image,
-} from "@chakra-ui/react";
+import React, { useState, useRef } from "react";
+import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { graphqlOperation, API } from "aws-amplify";
+import { graphqlOperation, API, Storage } from "aws-amplify";
 import { createProduct } from "../../graphql/mutations";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
@@ -21,12 +14,15 @@ const CreateProduct = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const input = useRef(null);
+  const [selected, setSelected] = useState();
 
-  const goBack = () => history.goBack()
+  const goBack = () => history.goBack();
 
   const submit = async (data) => {
-    const { title, description, price, type, warranty } = data;
+    console.log(data);
     try {
+      const { title, description, price, type, warranty } = data;
       setLoading(true);
       const input = {
         title,
@@ -43,13 +39,22 @@ const CreateProduct = () => {
     }
   };
 
+  const onChange = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelected(file);
+      try {
+        await Storage.put(file.name, file);
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
+    }
+  };
+
   return (
     <>
+      <Button onClick={goBack}>Back</Button>
 
-      <Button onClick={goBack}>
-        Back
-      </Button>
-      
       <Image
         display={{ base: "none", md: "block" }}
         objectFit="contain"
@@ -84,7 +89,30 @@ const CreateProduct = () => {
               isInvalid={!!errors.warranty}
               {...register("warranty", { required: true })}
             />
-
+            {selected && (
+              <Image
+                size="4xl"
+                src={URL.createObjectURL(selected)}
+                w="300px"
+                h="300px"
+              />
+            )}
+            <Input
+              placeholder="image"
+              isInvalid={!!errors.image}
+              {...register("image", { required: true })}
+              style={{ display: "none" }}
+              type="file"
+              onChange={onChange}
+              accept="image/*"
+              ref={input}
+            />
+            <Button isLoading={loading} onClick={() => input.current?.click()}>
+              Upload
+            </Button>
+            {/* <Button variant="red" onClick={removeSelectedFile}> */}
+            Remove This Image
+            {/* {/* </Button> */}
             <Select
               placeholder="тип"
               isInvalid={!!errors.type}
