@@ -1,6 +1,5 @@
 const productUseCase = (productService) => {
-  const createProject = async (input) =>
-    await productService.createProduct(input);
+  const createProject = async (input) => await productService.createProject(input);
 
   return {
     createProject,

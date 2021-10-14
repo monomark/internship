@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { TYPES } from "../../constats";
@@ -11,15 +11,14 @@ const CreateProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const {createProduct, isLoading, data, error} = useCreateProduct()
 
   const goBack = () => history.goBack();
 
   const submit = async (data) => {
     const { title, description, price, type, warranty } = data;
     try {
-      setLoading(true);
       const input = {
         title,
         description,
@@ -27,11 +26,14 @@ const CreateProduct = () => {
         price,
         warranty,
       };
-      // await API.graphql(graphqlOperation(createProduct, { input }));
-      useCreateProduct(input);
-      history.replace("/");
+      createProduct(
+        input,
+        {
+          onSuccess: () => history.replace("/"),
+          onError: (e) => console.log(e)
+        }
+      )
     } catch (e) {
-      setLoading(false);
       console.log("createTodo error", e);
     }
   };
@@ -86,7 +88,7 @@ const CreateProduct = () => {
                 </option>
               ))}
             </Select>
-            <Button isLoading={loading} type="submit" variant="red">
+            <Button isLoading={isLoading} type="submit" variant="red">
               Create
             </Button>
           </VStack>

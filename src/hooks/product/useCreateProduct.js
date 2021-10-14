@@ -1,16 +1,14 @@
 import { productUseCase } from "../../core/factory";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 
-const useCreateProduct = (input) => {
-  const { isLoading, error, data, refetch } = useQuery("product", () =>
-    productUseCase.createProject(input)
-  );
+const useCreateProduct = () => {
+  const { isLoading, error, data, mutate: createProduct } = useMutation(productUseCase.createProject);
 
   return {
     isLoading,
     error,
     data,
-    refetch,
+    createProduct,
   };
 };
 
