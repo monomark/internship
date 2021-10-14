@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Input,
-  Select,
-  VStack,
-  Button,
-  Image,
-} from "@chakra-ui/react";
+import React, { useState, useRef } from "react";
+import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { graphqlOperation, API } from "aws-amplify";
-import { createProduct } from "../../graphql/mutations";
+import { graphqlOperation, API, Storage } from "aws-amplify";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
+import { useCreateProduct } from "../../hooks";
 
 const CreateProduct = () => {
   const {
@@ -19,37 +12,52 @@ const CreateProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const input = useRef(null);
+  const [image, setImage] = useState('');
+  const {createProduct, isLoading, data, error} = useCreateProduct()
 
-  const goBack = () => history.goBack()
+  const goBack = () => history.goBack();
 
   const submit = async (data) => {
-    const { title, description, price, type, warranty } = data;
     try {
-      setLoading(true);
+      const { title, description, price, type, warranty } = data;
       const input = {
         title,
         description,
         type,
         price,
         warranty,
+        image,
       };
-      await API.graphql(graphqlOperation(createProduct, { input }));
-      history.replace("/");
+      createProduct(
+        input,
+        {
+          onSuccess: () => history.replace("/"),
+          onError: (e) => console.log(e)
+        }
+      )
     } catch (e) {
-      setLoading(false);
       console.log("createTodo error", e);
+    }
+  };
+
+  const onChange = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      try {
+        const url = await Storage.put(file.name, file);
+        setImage(url.key)
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
     }
   };
 
   return (
     <>
+      <Button onClick={goBack}>Back</Button>
 
-      <Button onClick={goBack}>
-        Back
-      </Button>
-      
       <Image
         display={{ base: "none", md: "block" }}
         objectFit="contain"
@@ -84,7 +92,29 @@ const CreateProduct = () => {
               isInvalid={!!errors.warranty}
               {...register("warranty", { required: true })}
             />
-
+            {image &&  <Image
+                size="4xl"
+                objectFit="cover"
+                src={process.env.REACT_APP_STORAGE + image}
+                w="300px"
+                h="300px"
+              />}
+             
+            <Input
+              // placeholder="image"
+              display="none"
+              isInvalid={!!errors.image}
+              // {...register("image", { required: true })}
+              type="file"
+              onChange={onChange}
+              accept="image/*"
+              ref={input}
+            />
+            <Button isLoading={loading} onClick={() => input.current?.click()}>
+              Upload
+            </Button>
+            Remove This Image
+            {/* {/* </Button> */}
             <Select
               placeholder="тип"
               isInvalid={!!errors.type}
@@ -96,7 +126,7 @@ const CreateProduct = () => {
                 </option>
               ))}
             </Select>
-            <Button isLoading={loading} type="submit" variant="red">
+            <Button isLoading={isLoading} type="submit" variant="red">
               Create
             </Button>
           </VStack>

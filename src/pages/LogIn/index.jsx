@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   VStack,
   Input,
@@ -10,13 +10,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Auth, API, graphqlOperation } from "aws-amplify";
-import { getUser } from "../../graphql/queries";
 import { Link, useHistory } from "react-router-dom";
-import { useUser } from "../../hooks";
+import { useUser, useLogin } from "../../hooks";
+import useGetUser from "../../hooks/user/useGetUser";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const { isLoading, login } = useLogin();
+  const {isLoading: userLoading, getUser} = useGetUser()
   const {
     register,
     handleSubmit,
@@ -27,39 +27,45 @@ const Login = () => {
   const history = useHistory();
   const toast = useToast();
 
-  const submit = async (form) => {
-    try {
-      setLoading(true);
-      const cognitoUser = await Auth.signIn({
-        username: form.email.toLowerCase(),
-        password: form.password,
-      });
-
-      const { data } = await API.graphql(
-        graphqlOperation(getUser, { id: cognitoUser.username })
-      );
-      setUserObject({ user: data.getUser, loading: false });
-      history.push("/");
-    } catch (e) {
-      if (e.message === 'User is not confirmed.') {
-         return history.push(`/verify?username=${form.email.toLowerCase()}`)
+  const submit = (form) => {
+    login(
+      form,
+      {
+        onSuccess: ({username}) => getUser(
+          username,
+          {
+            onSuccess: ({data}) => {
+              setUserObject({ user: data.getUser, loading: false })
+              history.push('/')
+            },
+            onError: (e) => console.log('getUser error', e)
+          }
+        ),
+        onError: (e) => {
+          if (e.message === "User is not confirmed.") {
+            return history.push(`/verify?username=${form.email.toLowerCase()}`);
+          }
+          toast({
+            title: "User not found.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
       }
-      console.log(e.message)
-      setLoading(false);
-
-
-      toast({
-        title: "User not found.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
-  };
+    )
+  }
 
   return (
     <>
-      <Image display={{base: 'none', md: 'block'}} objectFit="contain" src="/assets/buy1.png" maxW="400px" h="100vh" w="full" />
+      <Image
+        display={{ base: "none", md: "block" }}
+        objectFit="contain"
+        src="/assets/buy1.png"
+        maxW="400px"
+        h="100vh"
+        w="full"
+      />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={handleSubmit(submit)}>
@@ -82,7 +88,7 @@ const Login = () => {
                 isInvalid={!!errors.password}
                 {...register("password", { required: true })}
               />
-              <Button isLoading={loading} type="submit" variant="red">
+              <Button isLoading={isLoading || userLoading} type="submit" variant="red">
                 Log In
               </Button>
               <Link to="/forgotpassword">

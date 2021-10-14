@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { useHistory, Link } from "react-router-dom";
+import authService from "../../core/service/authService";
 
 const ForgotPassword = () => {
   const [value, setValue] = useState("");
@@ -32,7 +33,9 @@ const ForgotPassword = () => {
     }
     setError(false);
 
-    Auth.forgotPassword(value)
+    // Auth.forgotPassword(value)
+    authService()
+      .forgetPassword(value)
       .then(() => history.push(`/resetpassword?email=${value}`))
       .catch(() =>
         toast({
@@ -46,7 +49,14 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <Image display={{base: 'none', md: 'block'}} objectFit="contain" src="/assets/forgotpassword.png" maxW="400px" h="100vh" w="full" />
+      <Image
+        display={{ base: "none", md: "block" }}
+        objectFit="contain"
+        src="/assets/forgotpassword.png"
+        maxW="400px"
+        h="100vh"
+        w="full"
+      />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form noValidate onSubmit={submit}>

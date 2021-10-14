@@ -12,12 +12,13 @@ import {
 import { Auth } from "aws-amplify";
 import { useHistory, Link } from "react-router-dom";
 import useQueryParams from "../../hooks/useQueryParams";
+import authService from "../../core/service/authService";
 
 const ResetPassword = () => {
   const [value, setValue] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const params = useQueryParams()
+  const params = useQueryParams();
   const history = useHistory();
   const toast = useToast();
 
@@ -31,7 +32,8 @@ const ResetPassword = () => {
     if (!password || !password.trim()) {
       return setError(true);
     }
-    Auth.forgotPasswordSubmit(username, value, password)
+    authService()
+      .forgotPasswordSubmit(username, value, password)
       .then(() => history.push("/login"))
       .catch(() =>
         toast({
@@ -45,7 +47,14 @@ const ResetPassword = () => {
 
   return (
     <>
-      <Image display={{base: 'none', md: 'block'}} src="/assets/reset.png" objectFit="contain" maxW="400px" h="100vh" w="full" />
+      <Image
+        display={{ base: "none", md: "block" }}
+        src="/assets/reset.png"
+        objectFit="contain"
+        maxW="400px"
+        h="100vh"
+        w="full"
+      />
       <Flex justifyContent="center" w="full">
         <Box w="full" maxW="600px">
           <form onSubmit={submit}>
