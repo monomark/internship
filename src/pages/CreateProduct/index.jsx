@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Input,
-  Select,
-  VStack,
-  Button,
-  Image,
-} from "@chakra-ui/react";
+import React from "react";
+import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { graphqlOperation, API } from "aws-amplify";
-import { createProduct } from "../../graphql/mutations";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
+import { useCreateProduct } from "../../hooks";
 
 const CreateProduct = () => {
   const {
@@ -19,15 +11,14 @@ const CreateProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const {createProduct, isLoading, data, error} = useCreateProduct()
 
-  const goBack = () => history.goBack()
+  const goBack = () => history.goBack();
 
   const submit = async (data) => {
     const { title, description, price, type, warranty } = data;
     try {
-      setLoading(true);
       const input = {
         title,
         description,
@@ -35,21 +26,22 @@ const CreateProduct = () => {
         price,
         warranty,
       };
-      await API.graphql(graphqlOperation(createProduct, { input }));
-      history.replace("/");
+      createProduct(
+        input,
+        {
+          onSuccess: () => history.replace("/"),
+          onError: (e) => console.log(e)
+        }
+      )
     } catch (e) {
-      setLoading(false);
       console.log("createTodo error", e);
     }
   };
 
   return (
     <>
+      <Button onClick={goBack}>Back</Button>
 
-      <Button onClick={goBack}>
-        Back
-      </Button>
-      
       <Image
         display={{ base: "none", md: "block" }}
         objectFit="contain"
@@ -96,7 +88,7 @@ const CreateProduct = () => {
                 </option>
               ))}
             </Select>
-            <Button isLoading={loading} type="submit" variant="red">
+            <Button isLoading={isLoading} type="submit" variant="red">
               Create
             </Button>
           </VStack>

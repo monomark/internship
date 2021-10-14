@@ -1,7 +1,7 @@
-import project from './projectUseCase'
+import project from "./projectUseCase";
+import product from "./productUseCase";
 
-import {
-    projectService,
-} from '../service'
+import { productService, projectService } from "../service";
 
-export const projectUseCase = project(projectService())
+export const projectUseCase = project(projectService());
+export const productUseCase = product(productService());
