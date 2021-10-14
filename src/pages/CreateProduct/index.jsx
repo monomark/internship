@@ -110,7 +110,7 @@ const CreateProduct = () => {
               accept="image/*"
               ref={input}
             />
-            <Button isLoading={loading} onClick={() => input.current?.click()}>
+            <Button isLoading={isLoading} onClick={() => input.current?.click()}>
               Upload
             </Button>
             Remove This Image
