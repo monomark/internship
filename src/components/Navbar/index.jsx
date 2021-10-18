@@ -44,6 +44,9 @@ const Navbar = () => {
         </Flex>
       </HStack>
       <HStack spacing="4">
+        <Link to="/favourite">
+          <Button>My Favourites</Button>
+        </Link>
         <Link to="/myproducts">
           <Button>My Products</Button>
         </Link>
