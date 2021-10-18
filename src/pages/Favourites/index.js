@@ -3,7 +3,7 @@ import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import { API, graphqlOperation } from "aws-amplify";
 import Card from "../../components/Card";
 import { useUser } from "../../hooks";
-import { getProduct } from "../../graphql/queries";
+import { listProducts } from "../../graphql/queries";
 
 const Favourites = () => {
   const [products, setProducts] = useState([]);
@@ -11,23 +11,22 @@ const Favourites = () => {
   const { user } = useUser();
   console.log(user);
 
-  const getProducts = async () => {
+  const fetchProduct = async () => {
     try {
-      const id = user.favourites[0];
-      const { data } = await API.graphql(
-        graphqlOperation(getProduct, {
-          id,
-        })
+      const ids = user.favourites;
+
+      const { data } = await API.graphql(graphqlOperation(listProducts));
+
+      setProducts(
+        data.listProducts.items.filter((item) => ids.includes(item.id))
       );
-      const productList = data.getProduct;
-      setProducts(productList);
     } catch (e) {
       console.log("error on getinging products", e);
     }
   };
 
   useEffect(() => {
-    getProducts();
+    fetchProduct();
   }, []);
 
   return (
@@ -41,11 +40,11 @@ const Favourites = () => {
         }}
         spacing="6"
       >
-        {products && (
-          <GridItem position="relative" key={products.id}>
-            <Card value={products} />
+        {products.map((item) => (
+          <GridItem position="relative" key={item.id}>
+            <Card value={item} />
           </GridItem>
-        )}
+        ))}
       </SimpleGrid>
     </>
   );

@@ -47,22 +47,22 @@ const CreatedProducts = () => {
     }
   };
 
-  const addFavourites = async (data) => {
+  const addFavourites = async (id) => {
     try {
-      const id = data.id;
-      const details = {
-        id: user.id,
-        favourites: id,
-      };
-      await API.graphql(graphqlOperation(updateUser, { input: details }));
+      const favourites = [...user.favourites, id];
+      console.log(favourites);
+      await API.graphql(
+        graphqlOperation(updateUser, {
+          input: { id: user.id, favourites: favourites },
+        })
+      );
       setUserObject({
         loading: false,
         user: {
           ...user,
-          ...details,
+          favourites: favourites,
         },
       });
-      history.push("/favourite");
     } catch (e) {
       console.log(e, "uodate   error ");
     }
@@ -128,7 +128,7 @@ const CreatedProducts = () => {
               mt="4"
               p="4"
               _hover={{ bg: "yellow.100" }}
-              onClick={() => addFavourites(item)}
+              onClick={() => addFavourites(item.id)}
             >
               Add
             </Button>
