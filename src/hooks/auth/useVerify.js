@@ -1,19 +1,19 @@
 import { authUseCase } from "../../core/factory";
 import { useMutation } from "react-query";
 
-const useSignUp = () => {
+const useVerify = () => {
   const {
-    mutate: signUp,
+    mutate: confirmSignUp,
     isLoading,
     error,
     data,
-  } = useMutation(authUseCase.signUp);
+  } = useMutation(authUseCase.confirmSignUp);
   return {
-    signUp,
+    confirmSignUp,
     isLoading,
     error,
     data,
   };
 };
 
-export default useSignUp;
+export default useVerify;

@@ -12,10 +12,12 @@ import {
 import { Auth } from "aws-amplify";
 import { useHistory, Link } from "react-router-dom";
 import authService from "../../core/service/authService";
+import { useForgot } from "../../hooks";
 
 const ForgotPassword = () => {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const { forgot, isLoading, data, error: forgotError } = useForgot();
 
   const history = useHistory();
   const toast = useToast();
@@ -34,17 +36,20 @@ const ForgotPassword = () => {
     setError(false);
 
     // Auth.forgotPassword(value)
-    authService()
-      .forgetPassword(value)
-      .then(() => history.push(`/resetpassword?email=${value}`))
-      .catch(() =>
+    forgot(value, {
+      onSuccess: () => history.push(`/resetpassword?email=${value}`),
+      onError: () =>
         toast({
           title: "User not found.",
           status: "error",
           duration: 5000,
           isClosable: true,
-        })
-      );
+        }),
+    });
+    //     .then(() => ))
+    //     .catch(() =>
+
+    //     );
   };
 
   return (
@@ -74,7 +79,7 @@ const ForgotPassword = () => {
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
               />
-              <Button type="submit" variant="red">
+              <Button type="submit" variant="red" isLoading={isLoading}>
                 Reset Password
               </Button>
               <Link to="/login">

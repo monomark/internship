@@ -7,6 +7,7 @@ const UserProvider = ({ children }) => {
   const [userObject, setUserObject] = useState({
     loading: true,
     user: "",
+    
   });
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const UserProvider = ({ children }) => {
         setUserObject,
         user: userObject.user,
         loading: userObject.loading,
+      
       }}
     >
       {children}

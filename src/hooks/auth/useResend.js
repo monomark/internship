@@ -1,19 +1,19 @@
 import { authUseCase } from "../../core/factory";
 import { useMutation } from "react-query";
 
-const useSignUp = () => {
+const useResend = () => {
   const {
-    mutate: signUp,
+    mutate: resendSignUp,
     isLoading,
     error,
     data,
-  } = useMutation(authUseCase.signUp);
+  } = useMutation(authUseCase.resendSignUp);
   return {
-    signUp,
+    resendSignUp,
     isLoading,
     error,
     data,
   };
 };
 
-export default useSignUp;
+export default useResend;

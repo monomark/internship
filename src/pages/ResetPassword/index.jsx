@@ -13,6 +13,7 @@ import { Auth } from "aws-amplify";
 import { useHistory, Link } from "react-router-dom";
 import useQueryParams from "../../hooks/useQueryParams";
 import authService from "../../core/service/authService";
+import { useReset } from "../../hooks";
 
 const ResetPassword = () => {
   const [value, setValue] = useState("");
@@ -21,6 +22,7 @@ const ResetPassword = () => {
   const params = useQueryParams();
   const history = useHistory();
   const toast = useToast();
+  const { reset, isLoading, data } = useReset();
 
   const submit = async (event) => {
     event.preventDefault();
@@ -32,17 +34,24 @@ const ResetPassword = () => {
     if (!password || !password.trim()) {
       return setError(true);
     }
-    authService()
-      .forgotPasswordSubmit(username, value, password)
-      .then(() => history.push("/login"))
-      .catch(() =>
+    const data = { username, value, password };
+
+    reset(data, {
+      onSuccess: () => history.push("/login"),
+      onError: () =>
         toast({
           title: "InValid code or password.",
           status: "error",
           duration: 5000,
           isClosable: true,
-        })
-      );
+        }),
+    });
+    // authService()
+    //   .forgotPasswordSubmit(username, value, password)
+    //   .then(() => )
+    //   .catch(() =>
+
+    //   );
   };
 
   return (
@@ -78,7 +87,7 @@ const ResetPassword = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
-              <Button type="submit" variant="red">
+              <Button type="submit" variant="red" isLoading={isLoading}>
                 Submit
               </Button>
               <Link to="/forgotpassword">

@@ -16,7 +16,7 @@ import useGetUser from "../../hooks/user/useGetUser";
 
 const Login = () => {
   const { isLoading, login } = useLogin();
-  const {isLoading: userLoading, getUser} = useGetUser()
+  const { isLoading: userLoading, getUser } = useGetUser();
   const {
     register,
     handleSubmit,
@@ -28,33 +28,30 @@ const Login = () => {
   const toast = useToast();
 
   const submit = (form) => {
-    login(
-      form,
-      {
-        onSuccess: ({username}) => getUser(
-          username,
-          {
-            onSuccess: ({data}) => {
-              setUserObject({ user: data.getUser, loading: false })
-              history.push('/')
-            },
-            onError: (e) => console.log('getUser error', e)
-          }
-        ),
-        onError: (e) => {
-          if (e.message === "User is not confirmed.") {
-            return history.push(`/verify?username=${form.email.toLowerCase()}`);
-          }
-          toast({
-            title: "User not found.",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
+    login(form, {
+      onSuccess: ({ username }) =>
+        getUser(username, {
+          onSuccess: ({ data }) => {
+            setUserObject({ user: data.getUser, loading: false });
+            console.log(data);
+
+            history.push("/");
+          },
+          onError: (e) => console.log("getUser error", e),
+        }),
+      onError: (e) => {
+        if (e.message === "User is not confirmed.") {
+          return history.push(`/verify?username=${form.email.toLowerCase()}`);
         }
-      }
-    )
-  }
+        toast({
+          title: "User not found.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -88,7 +85,11 @@ const Login = () => {
                 isInvalid={!!errors.password}
                 {...register("password", { required: true })}
               />
-              <Button isLoading={isLoading || userLoading} type="submit" variant="red">
+              <Button
+                isLoading={isLoading || userLoading}
+                type="submit"
+                variant="red"
+              >
                 Log In
               </Button>
               <Link to="/forgotpassword">

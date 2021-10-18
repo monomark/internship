@@ -2,3 +2,8 @@ export { default as useUser } from "./useUser";
 export { default as useGetProject } from "./project/useGetProject";
 export { default as useLogin } from "./auth/useLogin";
 export { default as useCreateProduct } from "./product/useCreateProduct";
+export { default as useVerify } from "./auth/useVerify";
+export { default as useResend } from "./auth/useResend";
+export { default as useForgot } from "./auth/useForgot";
+export { default as useReset } from "./auth/useReset";
+export { default as useCreateUser } from "./user/useCreateUser";

@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { SimpleGrid, GridItem, CloseButton, Button, Box } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  GridItem,
+  CloseButton,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import { API, graphqlOperation } from "aws-amplify";
 import { listProducts } from "../../graphql/queries";
 import * as mutations from "../../graphql/mutations";
 import Card from "../../components/Card";
+import { useUser } from "../../hooks";
+import { updateUser } from "../../graphql/mutations";
 
 const CreatedProducts = () => {
-  const [products, setProducts] = useState([])
-  const history = useHistory()
+  const [products, setProducts] = useState([]);
+  const [newArray, setNewArray] = useState([]);
+  const history = useHistory();
+  const { user, setUserObject } = useUser();
 
   const fetchProducts = async () => {
     try {
       const { data } = await API.graphql(graphqlOperation(listProducts));
       const productList = data.listProducts.items;
       setProducts(productList);
+      console.log(productList);
     } catch (e) {
       console.log("error on fetching products", e);
     }
@@ -33,6 +44,27 @@ const CreatedProducts = () => {
       );
     } catch (e) {
       console.log("error deleting item", e);
+    }
+  };
+
+  const addFavourites = async (data) => {
+    try {
+      const id = data.id;
+      const details = {
+        id: user.id,
+        favourites: id,
+      };
+      await API.graphql(graphqlOperation(updateUser, { input: details }));
+      setUserObject({
+        loading: false,
+        user: {
+          ...user,
+          ...details,
+        },
+      });
+      history.push("/favourite");
+    } catch (e) {
+      console.log(e, "uodate   error ");
     }
   };
 
@@ -56,9 +88,9 @@ const CreatedProducts = () => {
             position="relative"
             key={item.id}
             _hover={{
-              '& > div:first-of-type': {
-                display: 'block'
-              }
+              "& > div:first-of-type": {
+                display: "block",
+              },
             }}
           >
             <Box
@@ -71,16 +103,16 @@ const CreatedProducts = () => {
                 duration: 30,
               }}
               initial={{
-                  opacity: 0,
+                opacity: 0,
               }}
               animate={{
-                  opacity: 1,
-              }}>
+                opacity: 1,
+              }}
+            >
               <CloseButton
                 _hover={{ bg: "yellow.100" }}
                 onClick={() => deleteProducts(item)}
               ></CloseButton>
-
             </Box>
             <Card value={item} />
             <Button
@@ -91,6 +123,14 @@ const CreatedProducts = () => {
               onClick={() => history.push(`/update-product?id=${item.id}`)}
             >
               Update
+            </Button>
+            <Button
+              mt="4"
+              p="4"
+              _hover={{ bg: "yellow.100" }}
+              onClick={() => addFavourites(item)}
+            >
+              Add
             </Button>
           </GridItem>
         ))}

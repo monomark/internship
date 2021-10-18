@@ -15,9 +15,13 @@ import { createUser } from "../../graphql/mutations";
 import { COUNTRIES } from "../../constats";
 import { useHistory, Link } from "react-router-dom";
 import authService from "../../core/service/authService";
+import useSignUp from "../../hooks/auth/useSignUp";
+import { useCreateUser } from "../../hooks";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
+  const { signUp, data, isLoading, error } = useSignUp();
+  const { createUser, isLoading: createLoading } = useCreateUser();
 
   const {
     register,
@@ -27,30 +31,31 @@ const Register = () => {
 
   const history = useHistory();
 
-  const submit = async (data) => {
+  const submit = (data) => {
     try {
-      setLoading(true);
-      // const cognitoUser = await Auth.signUp({
-      //   username: data.email.toLowerCase(),
-      //   password: data.password,
-      // });
-      console.log("jhfehf");
-      const cognitoUser = await authService().signUp(data);
-
-      const input = {
-        id: cognitoUser.userSub,
-        email: cognitoUser.user.username,
-        phone_number: data.phone_number,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        age: data.age,
-        country: data.country,
-      };
-      await API.graphql(graphqlOperation(createUser, { input }));
-      history.push(`/verify?username=${cognitoUser.user.username}`);
+      const cognitoUser = signUp(data, {
+        input: {
+          id: cognitoUser.userSub,
+          email: cognitoUser.user.username,
+          phone_number: data.phone_number,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          age: data.age,
+          country: data.country,
+        },
+        onSuccess: ({ input }) =>
+          createUser(
+            { input },
+            {
+              onSuccess: () =>
+                history.push(`/verify?username=${cognitoUser.user.username}`),
+              onError: (e) => console.log(e),
+            }
+          ),
+        onError: (e) => console.log(e),
+      });
     } catch (e) {
-      setLoading(false);
-      console.log("register error", e);
+      console.log("createTodo error", e);
     }
   };
 
@@ -114,7 +119,7 @@ const Register = () => {
                 ))}
               </Select>
 
-              <Button isLoading={loading} type="submit" variant="red">
+              <Button isLoading={createLoading} type="submit" variant="red">
                 Register
               </Button>
               <Link to="/login">

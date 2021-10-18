@@ -14,6 +14,7 @@ import UserDetails from "./UserDetails";
 import Profile from "./Profile";
 import MyProducts from "./MyProducts";
 import UpdatedProducts from "./UpdatedProducts";
+import Favourites from "./Favourites";
 
 const config = [
   {
@@ -108,6 +109,12 @@ const config = [
     path: "/get-allproducts",
     secure: false,
     layout: AuthLayout,
+  },
+  {
+    component: Favourites,
+    path: "/favourite",
+    secure: false,
+    layout: DefaultLayout,
   },
 ];
 
