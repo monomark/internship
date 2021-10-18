@@ -15,6 +15,7 @@ export const createUser = /* GraphQL */ `
       last_name
       age
       country
+      favourites
       createdAt
       updatedAt
     }
@@ -34,6 +35,7 @@ export const updateUser = /* GraphQL */ `
       last_name
       age
       country
+      favourites
       createdAt
       updatedAt
     }
@@ -53,6 +55,7 @@ export const deleteUser = /* GraphQL */ `
       last_name
       age
       country
+      favourites
       createdAt
       updatedAt
     }

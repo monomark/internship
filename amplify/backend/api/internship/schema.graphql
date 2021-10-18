@@ -7,6 +7,7 @@ type User @model {
   last_name: String
   age: Int
   country: String
+  favourites: [String]
 }
 
 type Product @model {

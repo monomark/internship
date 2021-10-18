@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
       last_name
       age
       country
+      favourites
       createdAt
       updatedAt
     }
@@ -33,6 +34,7 @@ export const listUsers = /* GraphQL */ `
         last_name
         age
         country
+        favourites
         createdAt
         updatedAt
       }
