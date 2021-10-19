@@ -7,6 +7,7 @@ import {
   Box,
   IconButton,
 } from "@chakra-ui/react";
+import { AiOutlineHeart } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import { API, graphqlOperation } from "aws-amplify";
@@ -116,23 +117,24 @@ const CreatedProducts = () => {
               ></CloseButton>
             </Box>
             <Card value={item} />
-            <Button
-              float="right"
-              mt="4"
-              p="4"
-              _hover={{ bg: "yellow.100" }}
-              onClick={() => history.push(`/update-product?id=${item.id}`)}
-            >
-              Update
-            </Button>
-            <Button
-              mt="4"
-              p="4"
-              _hover={{ bg: "yellow.100" }}
-              onClick={() => addFavourites(item.id)}
-            >
-              Add
-            </Button>
+            <Box bottom="200px" right="20px" position="absolute">
+              <IconButton
+                float="right"
+                mt="4"
+                p="4"
+                _hover={{ bg: "white" }}
+                onClick={() => addFavourites(item.id)}
+                icon={<AiOutlineHeart size="2rem" />}
+              ></IconButton>
+              <Button
+                mt="4"
+                p="4"
+                _hover={{ bg: "white" }}
+                onClick={() => history.push(`/update-product?id=${item.id}`)}
+              >
+                Update
+              </Button>
+            </Box>
           </GridItem>
         ))}
       </SimpleGrid>

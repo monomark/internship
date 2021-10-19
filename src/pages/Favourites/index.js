@@ -9,7 +9,7 @@ import { updateUser } from "../../graphql/mutations";
 const Favourites = () => {
   const [products, setProducts] = useState([]);
 
-  const { user } = useUser();
+  const { user, setUserObject } = useUser();
 
   const fetchProduct = async () => {
     try {
@@ -25,9 +25,14 @@ const Favourites = () => {
 
   const RemoveFavourite = async (id) => {
     try {
-      const userScreen = products.filter((item) => item.id !== id);
-      setProducts(userScreen);
-      const favourites = userScreen.map((item) => item.id);
+     
+      const favourites = user.favourites.map((item) => item !== id);
+      setUserObject({
+        loading: false,
+        user: {
+          ...user, favourites: favourites
+        }
+      })
       const { data } = await API.graphql(
         graphqlOperation(updateUser, {
           input: {
@@ -44,7 +49,7 @@ const Favourites = () => {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [user]);
 
   return (
     <>
