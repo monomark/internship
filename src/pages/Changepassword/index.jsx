@@ -1,20 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-  Flex,
-  Box,
-  Input,
-  Img,
-  Text,
-  VStack,
-  Button,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Flex, Box, Input, Img, Text, VStack, Button } from "@chakra-ui/react";
 import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
+import { useChangePassword } from "../../hooks";
+import { useUser } from "../../hooks";
 
 const UserDetails = () => {
   const history = useHistory();
+  const { changePassword, data } = useChangePassword();
+  const { user } = useUser();
 
   const {
     register,
@@ -22,13 +17,24 @@ const UserDetails = () => {
     formState: { errors },
   } = useForm();
 
-  const submit = async (data) => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        return Auth.changePassword(user, data.oldPassword, data.newPassword);
-      })
-      .then(() => history.push("/login"))
-      .catch((err) => console.log(err));
+  const submit = (data) => {
+    // // Auth.currentAuthenticatedUser()
+    //   // .then((user) => {
+    //     changePassword({ user, data.oldPassword,data.newPassword });
+    //   })
+    const form = {
+      user,
+      oldPassword: data.oldPassword,
+      newPassword: data.oldPassword,
+    };
+    console.log(form);
+    changePassword(form, {
+      onSuccess: (data) => console.log(data),
+      onError: (e) => console.log(e, data),
+    });
+
+    // .then(() => history.push("/login"))
+    // .catch((err) => console.log(err));
   };
 
   return (

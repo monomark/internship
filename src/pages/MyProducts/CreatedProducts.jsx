@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { SimpleGrid, GridItem, CloseButton, Button, Box } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  GridItem,
+  CloseButton,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
-import { API, graphqlOperation } from "aws-amplify";
-import { listProducts } from "../../graphql/queries";
-import * as mutations from "../../graphql/mutations";
 import Card from "../../components/Card";
+import { useDeleteProject } from "../../hooks";
+import { useListProject } from "../../hooks";
 
 const CreatedProducts = () => {
-  const [products, setProducts] = useState([])
-  const history = useHistory()
-
-  const fetchProducts = async () => {
-    try {
-      const { data } = await API.graphql(graphqlOperation(listProducts));
-      const productList = data.listProducts.items;
-      setProducts(productList);
-    } catch (e) {
-      console.log("error on fetching products", e);
-    }
-  };
+  const [products, setProducts] = useState([]);
+  const history = useHistory();
+  const { deleteProject } = useDeleteProject();
+  const { data } = useListProject();
 
   const deleteProducts = async (data) => {
     try {
@@ -28,17 +25,16 @@ const CreatedProducts = () => {
       const details = {
         id: data.id,
       };
-      await API.graphql(
-        graphqlOperation(mutations.deleteProduct, { input: details })
-      );
+
+      deleteProject(details);
     } catch (e) {
       console.log("error deleting item", e);
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  useEffect(async () => {
+    if (!!data) return await setProducts(data.data.listProducts.items);
+  }, [data]);
 
   return (
     <>
@@ -56,9 +52,9 @@ const CreatedProducts = () => {
             position="relative"
             key={item.id}
             _hover={{
-              '& > div:first-of-type': {
-                display: 'block'
-              }
+              "& > div:first-of-type": {
+                display: "block",
+              },
             }}
           >
             <Box
@@ -71,16 +67,16 @@ const CreatedProducts = () => {
                 duration: 30,
               }}
               initial={{
-                  opacity: 0,
+                opacity: 0,
               }}
               animate={{
-                  opacity: 1,
-              }}>
+                opacity: 1,
+              }}
+            >
               <CloseButton
                 _hover={{ bg: "yellow.100" }}
                 onClick={() => deleteProducts(item)}
               ></CloseButton>
-
             </Box>
             <Card value={item} />
             <Button

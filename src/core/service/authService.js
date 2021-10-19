@@ -14,12 +14,11 @@ const authService = () => {
 
   const resendSignUp = async (username) => await Auth.resendSignUp(username);
 
-  const login = async ({email, password}) => await Auth.signIn({
-    username: email.toLowerCase(),
-    password: password,
-  });
-
-    
+  const login = async ({ email, password }) =>
+    await Auth.signIn({
+      username: email.toLowerCase(),
+      password: password,
+    });
 
   const forgetPassword = async (email) => await Auth.forgotPassword(email);
 
@@ -27,6 +26,9 @@ const authService = () => {
     await Auth.forgotPasswordSubmit(email, code, password);
 
   const signOut = () => Auth.signOut();
+
+  const changePassword = async ({ user, oldPassword, newPassword }) =>
+    await Auth.changePassword(user, oldPassword, newPassword);
 
   return {
     signUp,
@@ -36,6 +38,7 @@ const authService = () => {
     forgetPassword,
     forgotPasswordSubmit,
     signOut,
+    changePassword,
   };
 };
 export default authService;

@@ -1,9 +1,9 @@
 import { projectUseCase } from "../../core/factory";
 import { useQuery } from "react-query";
 
-const useGetProject = (id) => {
+const useListProject = () => {
   const { isLoading, error, data, refetch } = useQuery("project", () =>
-    projectUseCase.getProject(id)
+    projectUseCase.listProject()
   );
 
   return {
@@ -14,4 +14,4 @@ const useGetProject = (id) => {
   };
 };
 
-export default useGetProject;
+export default useListProject;

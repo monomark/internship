@@ -1,12 +1,23 @@
 const projectUseCase = (projectService) => {
-    const getProject = async (id) => await projectService.getProject(id)
+  const getProject = async (id) => await projectService.getProject(id);
 
-    const deleteProject = async (id) => await projectService.deleteProject(id)
+  const deleteProject = async (id) => await projectService.deleteProject(id);
 
-    return {
-        getProject,
-        deleteProject,
-    }
-}
+  const createProject = async (input) =>
+    await projectService.createProject(input);
 
-export default projectUseCase
+  const listProject = async (data) => await projectService.listProject(data);
+
+  const updateProject = async (input) =>
+    await projectService.updateProject(input);
+
+  return {
+    getProject,
+    deleteProject,
+    createProject,
+    listProject,
+    updateProject,
+  };
+};
+
+export default projectUseCase;
