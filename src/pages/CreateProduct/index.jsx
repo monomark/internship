@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { Box, Input, Select, VStack, Button, Image } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { graphqlOperation, API, Storage } from "aws-amplify";
+import { Storage } from "aws-amplify";
 import { TYPES } from "../../constats";
 import { useHistory } from "react-router";
-import { useCreateProduct } from "../../hooks";
+import { useCreateProject } from "../../hooks";
 
 const CreateProduct = () => {
   const {
@@ -14,8 +14,8 @@ const CreateProduct = () => {
   } = useForm();
   const history = useHistory();
   const input = useRef(null);
-  const [image, setImage] = useState('');
-  const {createProduct, isLoading, data, error} = useCreateProduct()
+  const [image, setImage] = useState("");
+  const { createProject, isLoading, data, error } = useCreateProject();
 
   const goBack = () => history.goBack();
 
@@ -30,13 +30,10 @@ const CreateProduct = () => {
         warranty,
         image,
       };
-      createProduct(
-        input,
-        {
-          onSuccess: () => history.replace("/"),
-          onError: (e) => console.log(e)
-        }
-      )
+      createProject(input, {
+        onSuccess: () => history.replace("/"),
+        onError: (e) => console.log(e),
+      });
     } catch (e) {
       console.log("createTodo error", e);
     }
@@ -47,7 +44,7 @@ const CreateProduct = () => {
       const file = e.target.files[0];
       try {
         const url = await Storage.put(file.name, file);
-        setImage(url.key)
+        setImage(url.key);
       } catch (error) {
         console.log("Error uploading file: ", error);
       }
@@ -92,14 +89,15 @@ const CreateProduct = () => {
               isInvalid={!!errors.warranty}
               {...register("warranty", { required: true })}
             />
-            {image &&  <Image
+            {image && (
+              <Image
                 size="4xl"
                 objectFit="cover"
                 src={process.env.REACT_APP_STORAGE + image}
                 w="300px"
                 h="300px"
-              />}
-             
+              />
+            )}
             <Input
               // placeholder="image"
               display="none"
@@ -110,7 +108,10 @@ const CreateProduct = () => {
               accept="image/*"
               ref={input}
             />
-            <Button isLoading={isLoading} onClick={() => input.current?.click()}>
+            <Button
+              isLoading={isLoading}
+              onClick={() => input.current?.click()}
+            >
               Upload
             </Button>
             Remove This Image

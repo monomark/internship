@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import Button from "./Button";
+import Button from "./button";
 
 const theme = extendTheme({
   styles: {
