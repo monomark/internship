@@ -6,7 +6,7 @@ const authService = () => {
   const signUp = async ({ email, password }) =>
     await Auth.signUp({
       username: email.toLowerCase(),
-      password: password,
+      password,
     });
 
   const confirmSignUp = async ({ username, code }) => {

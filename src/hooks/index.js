@@ -7,3 +7,4 @@ export { default as useResend } from "./auth/useResend";
 export { default as useForgot } from "./auth/useForgot";
 export { default as useReset } from "./auth/useReset";
 export { default as useCreateUser } from "./user/useCreateUser";
+export { default as useSignUp } from "./auth/useSignUp";

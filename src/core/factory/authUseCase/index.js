@@ -1,12 +1,8 @@
 const authUseCase = (authService) => {
+  const signUp = async (data) => await authService.signUp(data);
 
-  const signUp = async (data) =>
-  await authService.signUp(data);
+  const confirmSignUp = async (data) => await authService.confirmSignUp(data);
 
-  const confirmSignUp = async (data) => 
-  
-    await authService.confirmSignUp(data);
-  
   const resendSignUp = async (username) =>
     await authService.resendSignUp(username);
 

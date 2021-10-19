@@ -14,9 +14,8 @@ import { Auth, graphqlOperation, API } from "aws-amplify";
 import { createUser } from "../../graphql/mutations";
 import { COUNTRIES } from "../../constats";
 import { useHistory, Link } from "react-router-dom";
-import authService from "../../core/service/authService";
-import useSignUp from "../../hooks/auth/useSignUp";
 import { useCreateUser } from "../../hooks";
+import { useSignUp } from "../../hooks";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -33,29 +32,24 @@ const Register = () => {
 
   const submit = (data) => {
     try {
-      const cognitoUser = signUp(data, {
-        input: {
-          id: cognitoUser.userSub,
-          email: cognitoUser.user.username,
-          phone_number: data.phone_number,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          age: data.age,
-          country: data.country,
-        },
-        onSuccess: ({ input }) =>
-          createUser(
-            { input },
-            {
-              onSuccess: () =>
-                history.push(`/verify?username=${cognitoUser.user.username}`),
-              onError: (e) => console.log(e),
-            }
-          ),
-        onError: (e) => console.log(e),
+      const cognitoUser = signUp(data);
+      console.log(cognitoUser, "555");
+      const input = {
+        id: cognitoUser.userSub,
+        email: cognitoUser.user.username,
+        phone_number: data.phone_number,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        age: data.age,
+        country: data.country,
+      };
+      createUser(input, {
+        onSuccess: () =>
+          history.push(`/verify?username=${cognitoUser.user.username}`),
+        onError: (e) => console.log("registration error", e),
       });
     } catch (e) {
-      console.log("createTodo error", e);
+      console.log("createUser error", e);
     }
   };
 

@@ -5,6 +5,7 @@ import {
   CloseButton,
   Button,
   Box,
+  IconButton,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
