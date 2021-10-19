@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Flex, Box, Input, Img, Text, VStack, Button, useToast } from '@chakra-ui/react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { updateUser } from '../../graphql/mutations';
-import { useForm } from 'react-hook-form';
-import { useUser } from '../../hooks';
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
+import {
+  Flex,
+  Box,
+  Input,
+  Img,
+  Text,
+  VStack,
+  Button,
+  useToast,
+} from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { useUser } from "../../hooks";
+import { useUpdateProject } from "../../hooks";
 
 const UserDetails = () => {
-  const history = useHistory()
-  const { user, setUserObject } = useUser()
-  const toast = useToast()
+  const history = useHistory();
+  const { user, setUserObject } = useUser();
+  const toast = useToast();
+  const { updateProject } = useUpdateProject();
 
   const {
     register,
@@ -35,17 +44,20 @@ const UserDetails = () => {
         age: data.age,
       };
 
-      await API.graphql(graphqlOperation(updateUser, { input: details }))
+      updateProject(details);
       toast({
         title: "Saved!",
         status: "success",
         duration: 5000,
         isClosable: true,
-      })
-      setUserObject({loading: false, user: {
-        ...user,
-        ...details,
-      }})
+      });
+      setUserObject({
+        loading: false,
+        user: {
+          ...user,
+          ...details,
+        },
+      });
       history.push("/profile");
     } catch (e) {
       console.log(e, "change   error ");
@@ -64,13 +76,8 @@ const UserDetails = () => {
           </Text>
           <form noValidate onSubmit={handleSubmit(submit)}>
             <VStack px="8" spacing="5">
-            <Input
-                value={user.email}
-                disabled
-                placeholder="Email"
-              />
+              <Input value={user.email} disabled placeholder="Email" />
               <Input
-                // defaultValue={user.first_name}
                 type="text"
                 placeholder="First Name"
                 isInvalid={!!errors.first_name}
@@ -96,13 +103,6 @@ const UserDetails = () => {
                 type="number"
                 pattern="[0-9+]*"
               />
-              {/* <Input
-                placeholder="Email"
-                isInvalid={!!errors.email}
-                {...register("email", { required: true })}
-                type="text"
-              /> */}
-
               <Button type="submit">SAVE CHANGES</Button>
             </VStack>
           </form>
