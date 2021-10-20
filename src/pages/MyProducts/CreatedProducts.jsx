@@ -20,6 +20,7 @@ import { updateUser } from "../../graphql/mutations";
 const CreatedProducts = () => {
   const [products, setProducts] = useState([]);
   const [newArray, setNewArray] = useState([]);
+
   const history = useHistory();
   const { user, setUserObject } = useUser();
 
@@ -117,9 +118,10 @@ const CreatedProducts = () => {
               ></CloseButton>
             </Box>
             <Card value={item} />
+
             <Box bottom="200px" right="20px" position="absolute">
               <IconButton
-                float="right"
+                float="left"
                 mt="4"
                 p="4"
                 _hover={{ bg: "white" }}
