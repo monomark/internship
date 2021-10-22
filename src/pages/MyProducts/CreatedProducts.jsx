@@ -6,8 +6,9 @@ import {
   Button,
   Box,
   IconButton,
+  Image,
 } from "@chakra-ui/react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import { API, graphqlOperation } from "aws-amplify";
@@ -67,8 +68,36 @@ const CreatedProducts = () => {
         },
       });
     } catch (e) {
-      console.log(e, "uodate   error ");
+      console.log(e, "update   error ");
     }
+  };
+
+  const removeFavourite = async (id) => {
+    try {
+      const favourites = user.favourites.filter((item) => item !== id);
+      setUserObject({
+        loading: false,
+        user: {
+          ...user,
+          favourites: favourites,
+        },
+      });
+      const { data } = await API.graphql(
+        graphqlOperation(updateUser, {
+          input: {
+            id: user.id,
+            favourites: favourites,
+          },
+        })
+      );
+      console.log(data);
+    } catch (e) {
+      console.log("error remove favourite", e);
+    }
+  };
+
+  const handleClick = (id) => {
+    user.favourites.includes(id) ? removeFavourite(id) : addFavourites(id);
   };
 
   useEffect(() => {
@@ -125,8 +154,9 @@ const CreatedProducts = () => {
                 mt="4"
                 p="4"
                 _hover={{ bg: "white" }}
-                onClick={() => addFavourites(item.id)}
-                icon={<AiOutlineHeart size="2rem" />}
+                onClick={() => handleClick(item.id)}
+                icon={<FaHeart size="2rem" />}
+                color={user.favourites.includes(item.id) ? "red" : "pink"}
               ></IconButton>
               <Button
                 mt="4"
